@@ -30,6 +30,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ShareView extends AppCompatActivity {
 
@@ -223,14 +225,51 @@ public class ShareView extends AppCompatActivity {
 
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater inflate = LayoutInflater.from(getApplicationContext());
             convertView = inflate.inflate(R.layout.singe_request_item,parent,false);
 
+            System.out.println(getItem(position).toString());
+
             TextView requestUser = convertView.findViewById(R.id.RequestUser);
+            Button AcceptOffer = convertView.findViewById(R.id.AcceptButton);
 
             try{
                 requestUser.setText(getItem(position).getString("username"));
+
+                AcceptOffer.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        StringRequest AcceptFriend = new StringRequest(Request.Method.POST, "http://104.236.66.72:5698/user/friend/accept", new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                System.out.println(response);
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        }){
+                            @Override
+                            protected Map<String,String> getParams(){
+                                SharedPreferences p = getSharedPreferences("SongShareLogin",MODE_PRIVATE);
+                                Map<String,String> params = new HashMap<String, String>();
+
+                                try{
+                                    params.put("acceptedId",String.valueOf(getItem(position).getInt("request_id")));
+                                    params.put("user_id",String.valueOf(p.getInt("SongShareId",0)));
+                                    params.put("friend_id",String.valueOf(getItem(position).getInt("_id")));
+                                }catch(Exception e){
+
+                                }
+
+                                return params;
+                            }
+                        };
+                        req.add(AcceptFriend);
+                    }
+                });
             }catch(Exception e){
                 System.out.println("ERROR BUILDING FRIEND LIST ITEM");
             }
