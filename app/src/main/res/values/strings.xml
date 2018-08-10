@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">songshare</string>
+    <string name="title_activity_find_friends">FindFriends</string>
+</resources>

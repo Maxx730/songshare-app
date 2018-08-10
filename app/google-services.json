@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "497688954989",
+    "firebase_url": "https://songshare-707e0.firebaseio.com",
+    "project_id": "songshare-707e0",
+    "storage_bucket": "songshare-707e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497688954989:android:382998fd0dec7330",
+        "android_client_info": {
+          "package_name": "com.squidswap.songshare.songshare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497688954989-0stl90i9ide8m16rsdpta9ds5l5ef1ka.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9JeaFKyZr71oTdX6TA1A5Z_d3nHJ_axw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
