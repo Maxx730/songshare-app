@@ -8,27 +8,10 @@
     tools:context="com.squidswap.songshare.songshare.ShareView">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/colorPrimaryDark"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#8A28A6"
-            android:ems="10"
-            android:inputType="textPersonName" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/FriendsLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="60dp"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -91,11 +74,11 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ShareLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="60dp"
         android:orientation="vertical"
         android:visibility="visible">
 
@@ -103,16 +86,25 @@
             android:id="@+id/ShareList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fadingEdge="vertical"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp" />
-    </LinearLayout>
+            android:fadingEdge="vertical" />
+
+        <RelativeLayout
+            android:id="@+id/ScrollShade"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="65dp"
+            android:background="@drawable/gradient_shade">
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/SettingsLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="60dp"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -126,36 +118,89 @@
     <LinearLayout
         android:id="@+id/TopToggles"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="65dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="60dp"
-        android:background="@color/colorPrimaryDark"
+        android:layout_alignParentTop="false"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/share_screen_toggle"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/SharesToggle"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            app:srcCompat="@drawable/stream_icon" />
+            android:layout_weight="1">
 
-        <ImageButton
-            android:id="@+id/FriendsToggle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            app:srcCompat="@drawable/ic_if_user3_216779" />
+            <ImageButton
+                android:id="@+id/SharesToggle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:paddingBottom="20dp"
+                app:srcCompat="@drawable/stream_icon" />
 
-        <ImageButton
-            android:id="@+id/SettingsToggle"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:paddingBottom="6dp"
+                android:text="Shared"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            app:srcCompat="@drawable/solid_settings" />
+            android:layout_weight="1">
+
+            <ImageButton
+                android:id="@+id/FriendsToggle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:paddingBottom="20dp"
+                app:srcCompat="@drawable/ic_if_user3_216779" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:paddingBottom="6dp"
+                android:text="Friends"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:id="@+id/SettingsToggle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:paddingBottom="20dp"
+                app:srcCompat="@drawable/solid_settings" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:paddingBottom="6dp"
+                android:text="Settings"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 

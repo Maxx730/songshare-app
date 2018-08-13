@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +45,8 @@ public class ShareView extends AppCompatActivity {
     private ListView userFriends,requestList,shareList;
     private Button LogoutButton;
     private ImageButton FriendToggle,SettingsToggle,ShareToggle;
-    private LinearLayout Shares,Friends,Settings,FriendListLayout,RequestListLayout;
+    private LinearLayout Friends,Settings,FriendListLayout,RequestListLayout;
+    private RelativeLayout Shares;
     private Button ListFriendToggle,ListRequestToggle;
 
     @Override
@@ -293,7 +295,8 @@ public class ShareView extends AppCompatActivity {
                         StringRequest AcceptFriend = new StringRequest(Request.Method.POST, "http://104.236.66.72:5698/user/friend/accept", new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                System.out.println(response);
+                                LoadRequests();
+                                LoadFriends();
                             }
                         }, new Response.ErrorListener() {
                             @Override
