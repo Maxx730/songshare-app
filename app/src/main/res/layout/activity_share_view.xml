@@ -8,53 +8,29 @@
     tools:context="com.squidswap.songshare.songshare.ShareView">
 
     <LinearLayout
-        android:id="@+id/TopToggles"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/colorPrimaryDark"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-        <ImageButton
-            android:id="@+id/SearchToggle"
+        <EditText
+            android:id="@+id/editText2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
-            app:srcCompat="@drawable/search_icon" />
-
-        <ImageButton
-            android:id="@+id/SharesToggle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            app:srcCompat="@drawable/stream_icon" />
-
-        <ImageButton
-            android:id="@+id/FriendsToggle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            app:srcCompat="@drawable/ic_if_user3_216779" />
-
-        <ImageButton
-            android:id="@+id/SettingsToggle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            app:srcCompat="@drawable/solid_settings" />
-
+            android:background="#8A28A6"
+            android:ems="10"
+            android:inputType="textPersonName" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/FriendsLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="120dp"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/FriendReqToggle"
@@ -119,21 +95,24 @@
         android:id="@+id/ShareLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="120dp"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ListView
             android:id="@+id/ShareList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:fadingEdge="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/SettingsLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="120dp"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -142,6 +121,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Logout" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/TopToggles"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="60dp"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/SharesToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/stream_icon" />
+
+        <ImageButton
+            android:id="@+id/FriendsToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_if_user3_216779" />
+
+        <ImageButton
+            android:id="@+id/SettingsToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/solid_settings" />
+
     </LinearLayout>
 
 </RelativeLayout>

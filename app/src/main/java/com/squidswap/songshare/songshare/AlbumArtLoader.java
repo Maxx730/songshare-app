@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -40,6 +41,7 @@ public class AlbumArtLoader extends AsyncTask<String,Void,Bitmap>{
 
             return b;
         } catch(IOException e){
+            e.printStackTrace();
             return null;
         }
     }
@@ -47,6 +49,7 @@ public class AlbumArtLoader extends AsyncTask<String,Void,Bitmap>{
     @Override
     protected void onPostExecute(Bitmap bitmap) {
         super.onPostExecute(bitmap);
+        Log.d("IMAGE LOADING","FINISHED");
 
         this.view.setImageBitmap(bitmap);
         this.spinner.setVisibility(View.GONE);
