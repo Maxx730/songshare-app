@@ -4,70 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_dark"
+    android:background="@android:color/background_light"
     android:orientation="vertical"
     tools:context="com.squidswap.songshare.songshare.StreamView">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/imageButton4"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0"
-            android:background="@android:color/transparent"
-            android:padding="15dp"
-            app:srcCompat="@drawable/search_icon" />
-
-        <EditText
-            android:id="@+id/SearchText"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/search_box"
-            android:hint="Search"
-            android:inputType="textPersonName"
-            android:paddingLeft="20dp"
-            android:textColor="@android:color/background_light"
-            android:textColorHint="#333333" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/SearchTabs"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:visibility="gone">
+        android:layout_weight="0"
+        android:elevation="5dp"
+        android:padding="10dp">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="7dp"
-            android:layout_weight="1"
-            android:background="@drawable/search_box"
-            android:text="Tracks"
-            android:textColor="@android:color/background_light" />
+            android:layout_weight="0"
+            android:background="@drawable/search_field">
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="7dp"
-            android:layout_weight="1"
-            android:background="@drawable/search_box"
-            android:text="Users"
-            android:textColor="@android:color/background_light" />
+            <EditText
+                android:id="@+id/SearchText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="Search"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                android:textColor="@android:color/background_dark" />
 
-    </LinearLayout>
+            <ImageButton
+                android:id="@+id/imageButton4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:background="@android:color/transparent"
+                android:padding="15dp"
+                app:srcCompat="@drawable/search_icon" />
+        </RelativeLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -1,46 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_dark"
+    android:background="@android:color/background_light"
+    android:orientation="vertical"
     tools:context="com.squidswap.songshare.songshare.LoginActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3">
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerVertical="true"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:padding="20dp">
 
-        <EditText
-            android:id="@+id/UsernameField"
+        <ImageView
+            android:id="@+id/imageView3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/background_light"
-            android:ems="10"
-            android:hint="Username"
-            android:inputType="textPersonName"
-            android:padding="10dp" />
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/songshare_retro" />
 
-        <EditText
-            android:id="@+id/PasswordField"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:background="@android:color/background_light"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:padding="10dp" />
+            android:layout_marginTop="5dp"
+            android:background="@drawable/search_field">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                app:srcCompat="@drawable/fontawesome_user" />
+
+            <EditText
+                android:id="@+id/UsernameField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:hint="Username"
+                android:inputType="textPersonName"
+                android:padding="10dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/search_field">
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="12dp"
+                app:srcCompat="@drawable/fontawesome_key" />
+
+            <EditText
+                android:id="@+id/PasswordField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="6dp"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="10dp" />
+        </RelativeLayout>
 
         <Button
             android:id="@+id/LoginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:background="@android:color/holo_purple"
+            android:background="@drawable/login_button"
             android:text="Login"
             android:textColor="@android:color/background_light" />
 
@@ -68,7 +115,7 @@
                 android:layout_weight="1"
                 android:text="Dont have an account?"
                 android:textAlignment="viewEnd"
-                android:textColor="@android:color/background_light" />
+                android:textColor="@color/colorAccent" />
 
             <TextView
                 android:id="@+id/SignUpLink"
@@ -77,8 +124,16 @@
                 android:layout_weight="1.5"
                 android:paddingLeft="8dp"
                 android:text="Sign Up"
-                android:textColor="@android:color/background_light" />
+                android:textColor="@color/colorAccent" />
 
         </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3">
+
+    </RelativeLayout>
+
+</LinearLayout>

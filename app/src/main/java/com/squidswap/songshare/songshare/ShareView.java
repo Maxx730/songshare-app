@@ -46,8 +46,7 @@ public class ShareView extends AppCompatActivity {
     private Button LogoutButton;
     private ImageButton FriendToggle,SettingsToggle,ShareToggle;
     private LinearLayout Friends,Settings,FriendListLayout,RequestListLayout;
-    private RelativeLayout Shares;
-    private Button ListFriendToggle,ListRequestToggle;
+    private RelativeLayout Shares,SharesIndi,SettingsIndi,FriendsIndi,FindFriendsButton,ListFriendToggle,ListRequestToggle,ToggleFriendsIndi,ToggleReqIndi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,15 +70,20 @@ public class ShareView extends AppCompatActivity {
         SettingsToggle = findViewById(R.id.SettingsToggle);
         ShareToggle = findViewById(R.id.SharesToggle);
         shareList = findViewById(R.id.ShareList);
-
+        SharesIndi = findViewById(R.id.SharesLineIndi);
+        SettingsIndi = findViewById(R.id.SettingsLineIndi);
+        FriendsIndi = findViewById(R.id.FriendsLineIndi);
+        FindFriendsButton = findViewById(R.id.FindFriends);
+        ToggleFriendsIndi = findViewById(R.id.ToggleFriendsIndi);
+        ToggleReqIndi = findViewById(R.id.ToggleRequestsIndi);
         Shares = findViewById(R.id.ShareLayout);
         Friends = findViewById(R.id.FriendsLayout);
         Settings = findViewById(R.id.SettingsLayout);
 
         FriendListLayout = findViewById(R.id.FriendListLayout);
         RequestListLayout = findViewById(R.id.RequestLayout);
-        ListFriendToggle = findViewById(R.id.ToggleFriends);
-        ListRequestToggle = findViewById(R.id.ToggleRequests);
+        ListFriendToggle = findViewById(R.id.ToggleListFriends);
+        ListRequestToggle = findViewById(R.id.ToggleListRequests);
         requestList = findViewById(R.id.RequestList);
 
         ListFriendToggle.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +91,8 @@ public class ShareView extends AppCompatActivity {
             public void onClick(View v) {
                 RequestListLayout.setVisibility(View.GONE);
                 FriendListLayout.setVisibility(View.VISIBLE);
+                HideFriendsIndis();
+                ToggleFriendsIndi.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 LoadFriends();
             }
         });
@@ -96,7 +102,17 @@ public class ShareView extends AppCompatActivity {
             public void onClick(View v) {
                 FriendListLayout.setVisibility(View.GONE);
                 RequestListLayout.setVisibility(View.VISIBLE);
+                HideFriendsIndis();
+                ToggleReqIndi.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 LoadRequests();
+            }
+        });
+
+        FindFriendsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),StreamView.class);
+                startActivity(i);
             }
         });
 
@@ -106,7 +122,9 @@ public class ShareView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 HideLayouts();
+                LoadFriends();
                 Friends.setVisibility(View.VISIBLE);
+                FriendsIndi.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 LoadFriends();
             }
         });
@@ -115,6 +133,8 @@ public class ShareView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 HideLayouts();
+
+                SettingsIndi.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 Settings.setVisibility(View.VISIBLE);
             }
         });
@@ -123,6 +143,8 @@ public class ShareView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 HideLayouts();
+                LoadShares();
+                SharesIndi.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 Shares.setVisibility(View.VISIBLE);
             }
         });
@@ -134,7 +156,7 @@ public class ShareView extends AppCompatActivity {
                 SharedPreferences.Editor edit = prefs.edit();
                 edit.remove("SongShareUser");
                 edit.remove("SongSharePassword");
-                edit.remove("_id");
+                edit.remove("SongShareId");
                 edit.commit();
                 Intent i = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(i);
@@ -144,6 +166,11 @@ public class ShareView extends AppCompatActivity {
         LoadFriends();
         LoadRequests();
         LoadShares();
+    }
+
+    private void HideFriendsIndis(){
+        ToggleFriendsIndi.setBackgroundColor(getResources().getColor(R.color.slightGray));
+        ToggleReqIndi.setBackgroundColor(getResources().getColor(R.color.slightGray));
     }
 
     private void LoadRequests(){
@@ -216,12 +243,16 @@ public class ShareView extends AppCompatActivity {
                     ArrayList<JSONObject> objs = new ArrayList<JSONObject>();
                     JSONArray sour = mainObj.getJSONArray("PAYLOAD");
 
-                    for(int i = 0;i < sour.length();i++){
-                        objs.add(sour.getJSONObject(i));
-                    }
+                    if(sour.length() > 0){
+                        for(int i = 0;i < sour.length();i++){
+                            objs.add(sour.getJSONObject(i));
+                        }
 
-                    ShareAdapter shareAdapt = new ShareAdapter(getApplicationContext(),R.layout.single_share_item,objs);
-                    shareList.setAdapter(shareAdapt);
+                        ShareAdapter shareAdapt = new ShareAdapter(getApplicationContext(),R.layout.single_share_item,objs);
+                        shareList.setAdapter(shareAdapt);
+                        ImageView shareFrown = findViewById(R.id.NoSharesFrown);
+                        shareFrown.setVisibility(View.GONE);
+                    }
                 }catch(Exception e){
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(),"ERROR PULLING SHARE DATA",Toast.LENGTH_SHORT).show();
@@ -241,6 +272,9 @@ public class ShareView extends AppCompatActivity {
         Shares.setVisibility(View.GONE);
         Settings.setVisibility(View.GONE);
         Friends.setVisibility(View.GONE);
+        SettingsIndi.setBackgroundColor(getResources().getColor(R.color.slightGray));
+        FriendsIndi.setBackgroundColor(getResources().getColor(R.color.slightGray));
+        SharesIndi.setBackgroundColor(getResources().getColor(R.color.slightGray));
     }
 
 
@@ -257,7 +291,6 @@ public class ShareView extends AppCompatActivity {
             convertView = inflate.inflate(R.layout.single_friend_item,parent,false);
 
             TextView username = convertView.findViewById(R.id.FriendUsername);
-            TextView status = convertView.findViewById(R.id.FriendStatus);
 
             try{
                 username.setText(getItem(position).getString("username"));
@@ -354,11 +387,21 @@ public class ShareView extends AppCompatActivity {
             TextView singleShareTitle = convertView.findViewById(R.id.SingleTrackTitle);
             TextView singleShareArtist = convertView.findViewById(R.id.SingleTrackArtist);
             ImageView sharedArtwork = convertView.findViewById(R.id.SharedArtwork);
+            TextView singleShareShaerer = convertView.findViewById(R.id.SingleShareSharer);
 
             try{
                 singleShareTitle.setText(getItem(position).getString("title"));
                 singleShareArtist.setText(getItem(position).getString("artist"));
+                singleShareShaerer.setText(getItem(position).getString("username"));
                 Glide.with(convertView).load(getItem(position).getString("art")).into(sharedArtwork);
+
+                sharedArtwork.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(getApplicationContext(),SingleShare.class);
+                        startActivity(i);
+                    }
+                });
             }catch(Exception e){
 
             }

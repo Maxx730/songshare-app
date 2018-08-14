@@ -283,7 +283,8 @@ public class MainActivity extends AppCompatActivity {
                                     AlbumArtLoader load = new AlbumArtLoader(albumImage,largeImage.getString("#text"),imageSpinner);
                                     load.execute("");
                                 }catch (JSONException e){
-                                    System.out.println("ALERT: No album information.");
+                                    Toast.makeText(getApplicationContext(),"Unable to find album art for track.",Toast.LENGTH_SHORT).show();
+                                    imageSpinner.setVisibility(View.GONE);
                                 }
                             } catch (JSONException e) {
                                 System.out.println("ALERT: Track not found.");

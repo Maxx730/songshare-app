@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_dark"
+    android:background="@android:color/background_light"
     android:padding="20dp">
 
     <TextView
@@ -18,7 +18,7 @@
         android:layout_weight="3"
         android:gravity="center_vertical"
         android:text="Undefined"
-        android:textColor="@android:color/background_light"
+        android:textColor="@android:color/background_dark"
         android:textSize="24sp" />
 
     <ProgressBar
@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="8"
-        android:background="@drawable/search_box"
+        android:background="@drawable/login_button"
         android:text="Add"
         android:textColor="@android:color/background_light" />
 

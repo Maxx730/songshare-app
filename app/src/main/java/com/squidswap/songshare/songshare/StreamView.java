@@ -83,22 +83,9 @@ public class StreamView extends AppCompatActivity {
         setContentView(R.layout.activity_stream_view);
 
         searchText = findViewById(R.id.SearchText);
-        searchTabs = findViewById(R.id.SearchTabs);
         userList = findViewById(R.id.UserListView);
 
         searchQueue = Volley.newRequestQueue(getApplicationContext());
-
-
-        searchText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
-                    searchTabs.setVisibility(View.VISIBLE);
-                }else{
-                    searchTabs.setVisibility(View.GONE);
-                }
-            }
-        });
 
         searchText.addTextChangedListener(new TextWatcher() {
             @Override
