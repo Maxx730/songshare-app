@@ -214,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
                                             try{
                                                 params.put("title", resultSong.getString("title"));
                                                 params.put("artist", resultSong.getString("artist"));
+                                                params.put("art",resultSong.getString("art"));
                                             }catch(Exception e){
                                                 Toast.makeText(getApplicationContext(),"ERROR SHARING TRACK TO DATABASE",Toast.LENGTH_LONG).show();
                                             }
