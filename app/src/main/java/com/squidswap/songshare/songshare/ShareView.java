@@ -381,12 +381,12 @@ public class ShareView extends AppCompatActivity {
 
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater inflate = getLayoutInflater().from(getApplicationContext());
             convertView = inflate.inflate(R.layout.single_share_item,parent,false);
-            TextView singleShareTitle = convertView.findViewById(R.id.SingleTrackTitle);
+            final TextView singleShareTitle = convertView.findViewById(R.id.SingleTrackTitle);
             TextView singleShareArtist = convertView.findViewById(R.id.SingleTrackArtist);
-            ImageView sharedArtwork = convertView.findViewById(R.id.SharedArtwork);
+            ImageView sharedArtwork = convertView.findViewById(R.id.SingleAlbumArt);
             TextView singleShareShaerer = convertView.findViewById(R.id.SingleShareSharer);
 
             try{
@@ -399,7 +399,13 @@ public class ShareView extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent i = new Intent(getApplicationContext(),SingleShare.class);
-                        startActivity(i);
+                        //Add the id of the track in here to pull details on the details page.
+                        try{
+                            i.putExtra("TrackID",getItem(position).getInt("_id"));
+                            startActivity(i);
+                        }catch(Exception e){
+                            Toast.makeText(getApplicationContext(),"Problem opening track details.",Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
             }catch(Exception e){

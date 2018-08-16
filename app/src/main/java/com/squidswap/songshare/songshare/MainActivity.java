@@ -165,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
             //We have made it through the Spotify authentication.
             AuthenticationResponse response = AuthenticationClient.getResponse(resultCode,data);
             final String accessToken = response.getAccessToken();
-
             if(response.getType() == AuthenticationResponse.Type.TOKEN){
                 StringRequest SpotInfo = new StringRequest(Request.Method.GET, "https://api.spotify.com/v1/tracks/"+spotID, new Response.Listener<String>() {
                     @Override

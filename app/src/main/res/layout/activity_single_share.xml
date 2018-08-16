@@ -7,59 +7,105 @@
     android:orientation="vertical"
     tools:context="com.squidswap.songshare.songshare.SingleShare">
 
-    <RelativeLayout
+    <ProgressBar
+        android:id="@+id/LoadingSingleShare"
+        style="?android:attr/progressBarStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:padding="150dp" />
+
+    <RelativeLayout
+        android:id="@+id/SingleShareImageLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@android:color/background_dark"
-        android:padding="30dp">
+        android:elevation="5dp"
+        android:visibility="gone">
 
         <ImageView
-            android:id="@+id/imageView11"
+            android:id="@+id/AlbumImage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitStart"
             app:srcCompat="@drawable/kawesome_case_smaller" />
+
     </RelativeLayout>
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/SingleShareScrollLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView7"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="10dp"
-                android:text="[Track Title]"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="[Track Album]"
-                android:textAlignment="center"
-                android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/SharedSingleTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="18dp"
+                    android:paddingTop="15dp"
+                    android:text="[Track Title]"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/SharedSingleArtist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="18dp"
+                    android:text="[Track Artist]"
+                    android:textSize="24sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"></LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="20dp"
+                    android:text="Open with..."
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/open_spotify_button"
+                    android:text="Spotify"
+                    android:textColor="@android:color/background_light" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/google_play_button"
+                    android:text="Google Play"
+                    android:textColor="@android:color/background_light" />
+            </LinearLayout>
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:text="[Track Artist]"
-            android:textSize="24sp" />
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

@@ -3,121 +3,78 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="15dp"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:paddingTop="15dp">
+    android:layout_height="wrap_content"
+    android:elevation="5dp"
+    android:orientation="vertical">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/colorAccent">
+
+    </android.support.constraint.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/SingleAlbumArt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/ic_launcher_background" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="2dp"
+        android:background="@color/colorAccent"
+        android:orientation="vertical"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="5dp"
-            android:paddingRight="20dp">
+            android:paddingRight="15dp">
 
-            <ImageView
-                android:id="@+id/SharedArtwork"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginLeft="17dp"
-                android:layout_marginTop="13dp"
-                android:src="@drawable/ic_launcher_background" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/kawesome_case_smaller" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <RelativeLayout
-                android:id="@+id/HeartCounter"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:background="@drawable/login_button">
-
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginRight="13dp"
-                    android:layout_marginTop="10dp"
-                    android:text="[Count]"
-                    android:textColor="@android:color/background_light"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/imageView12"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    app:srcCompat="@drawable/fontawesome_heart" />
-            </RelativeLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/SingleTrackTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical"
-                android:paddingRight="10dp">
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:text="[Track Title]"
+                android:textAlignment="textEnd"
+                android:textColor="@android:color/background_dark"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/SingleTrackTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:layout_weight="1"
-                    android:text="[Track Title]"
-                    android:textAlignment="textEnd"
-                    android:textColor="@android:color/background_dark"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/SingleTrackArtist"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:text="[Artist]"
+                android:textAlignment="textEnd"
+                android:textColor="@android:color/background_dark"
+                android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/SingleTrackArtist"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:layout_weight="1"
-                    android:text="[Artist]"
-                    android:textAlignment="textEnd"
-                    android:textColor="@android:color/background_dark"
-                    android:textSize="12sp" />
+            <TextView
+                android:id="@+id/SingleShareSharer"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="3"
+                android:text="[Sharer]"
+                android:textAlignment="textEnd"
+                android:textColor="@android:color/background_dark"
+                android:visibility="gone" />
 
-                <TextView
-                    android:id="@+id/SingleShareSharer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:layout_weight="3"
-                    android:text="[Sharer]"
-                    android:textAlignment="textEnd"
-                    android:textColor="@android:color/background_dark" />
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

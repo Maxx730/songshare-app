@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,34 +53,10 @@ public class StreamView extends AppCompatActivity {
     private JSONArray searchResults;
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.actionbar_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_logout:
-                SharedPreferences prefs = getSharedPreferences("SongShareLogin",MODE_PRIVATE);
-                SharedPreferences.Editor edit = prefs.edit();
-                edit.remove("SongShareUser");
-                edit.remove("SongSharePassword");
-                edit.commit();
-                Intent i = new Intent(getApplicationContext(),LoginActivity.class);
-                startActivity(i);
-                break;
-            default:
-                break;
-        }
-
-        return true;
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_stream_view);
 
         searchText = findViewById(R.id.SearchText);
