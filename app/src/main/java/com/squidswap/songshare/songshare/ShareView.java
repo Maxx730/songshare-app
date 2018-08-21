@@ -12,15 +12,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,9 +47,10 @@ public class ShareView extends AppCompatActivity {
     private RequestQueue req;
     private ListView userFriends,requestList,shareList;
     private Button LogoutButton;
-    private ImageButton FriendToggle,SettingsToggle,ShareToggle;
     private LinearLayout Friends,Settings,FriendListLayout,RequestListLayout;
-    private RelativeLayout Shares,SharesIndi,SettingsIndi,FriendsIndi,FindFriendsButton,ListFriendToggle,ListRequestToggle,ToggleFriendsIndi,ToggleReqIndi;
+    private ImageButton FriendToggle,SettingsToggle,ShareToggle;
+    private RelativeLayout Shares,SettingsToggleLayout,FriendsToggleLayout,SharesToggleLayout,FindFriendsButton,ListFriendToggle,ListRequestToggle,ToggleFriendsIndi,ToggleReqIndi;
+    private Switch ToggleNavPosition,ToggleOpenButtons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,21 +74,28 @@ public class ShareView extends AppCompatActivity {
         SettingsToggle = findViewById(R.id.SettingsToggle);
         ShareToggle = findViewById(R.id.SharesToggle);
         shareList = findViewById(R.id.ShareList);
-        SharesIndi = findViewById(R.id.SharesLineIndi);
-        SettingsIndi = findViewById(R.id.SettingsLineIndi);
-        FriendsIndi = findViewById(R.id.FriendsLineIndi);
+        SettingsToggleLayout = findViewById(R.id.SettingsToggleLayout);
         FindFriendsButton = findViewById(R.id.FindFriends);
         ToggleFriendsIndi = findViewById(R.id.ToggleFriendsIndi);
         ToggleReqIndi = findViewById(R.id.ToggleRequestsIndi);
         Shares = findViewById(R.id.ShareLayout);
         Friends = findViewById(R.id.FriendsLayout);
         Settings = findViewById(R.id.SettingsLayout);
-
+        FriendsToggleLayout = findViewById(R.id.FriendsToggleLayout);
+        SharesToggleLayout = findViewById(R.id.SharesToggleLayout);
         FriendListLayout = findViewById(R.id.FriendListLayout);
         RequestListLayout = findViewById(R.id.RequestLayout);
         ListFriendToggle = findViewById(R.id.ToggleListFriends);
         ListRequestToggle = findViewById(R.id.ToggleListRequests);
         requestList = findViewById(R.id.RequestList);
+        ToggleNavPosition = findViewById(R.id.NavPositionToggle);
+
+        ToggleNavPosition.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                SharedPreferences prefs = getSharedPreferences("SongShareLogin",MODE_PRIVATE);
+            }
+        });
 
         ListFriendToggle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,9 +133,9 @@ public class ShareView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 HideLayouts();
+                FriendsToggleLayout.setBackground(getResources().getDrawable(R.drawable.login_button));
                 LoadFriends();
                 Friends.setVisibility(View.VISIBLE);
-                FriendsIndi.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 LoadFriends();
             }
         });
@@ -133,8 +144,7 @@ public class ShareView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 HideLayouts();
-
-                SettingsIndi.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                SettingsToggleLayout.setBackground(getResources().getDrawable(R.drawable.login_button));
                 Settings.setVisibility(View.VISIBLE);
             }
         });
@@ -143,8 +153,8 @@ public class ShareView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 HideLayouts();
+                SharesToggleLayout.setBackground(getResources().getDrawable(R.drawable.login_button));
                 LoadShares();
-                SharesIndi.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 Shares.setVisibility(View.VISIBLE);
             }
         });
@@ -269,12 +279,12 @@ public class ShareView extends AppCompatActivity {
 
 
     private void HideLayouts(){
+        FriendsToggleLayout.setBackground(getResources().getDrawable(R.drawable.search_field));
+        SettingsToggleLayout.setBackground(getResources().getDrawable(R.drawable.search_field));
+        SharesToggleLayout.setBackground(getResources().getDrawable(R.drawable.search_field));
         Shares.setVisibility(View.GONE);
         Settings.setVisibility(View.GONE);
         Friends.setVisibility(View.GONE);
-        SettingsIndi.setBackgroundColor(getResources().getColor(R.color.slightGray));
-        FriendsIndi.setBackgroundColor(getResources().getColor(R.color.slightGray));
-        SharesIndi.setBackgroundColor(getResources().getColor(R.color.slightGray));
     }
 
 
