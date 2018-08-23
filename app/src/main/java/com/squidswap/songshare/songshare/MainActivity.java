@@ -111,47 +111,6 @@ public class MainActivity extends AppCompatActivity {
                     ArtistField.setText(musicData.getArtist());
                     SendAPIRequest(musicData.getArtist(),musicData.getTitle());
 
-                    ShareBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            StringRequest ShareTrack = new StringRequest(Request.Method.POST, "http://104.236.66.72:5698/share/create", new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    System.out.println(response);
-                                    try{
-                                        JSONObject obj = new JSONObject(response);
-                                        System.out.println(response);
-                                        if(obj.getString("TYPE").equals("SUCCESS")){
-                                            Toast.makeText(getApplicationContext(),"Track Shared",Toast.LENGTH_SHORT).show();
-                                            finish();
-                                        }else{
-                                            Toast.makeText(getApplicationContext(),"There seems to have been an issue sharing this track.",Toast.LENGTH_SHORT).show();
-                                        }
-                                    }catch(Exception e){
-                                        System.out.println("ERROR SHARING MEDIA");
-                                    }
-                                }
-                            }, new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    error.printStackTrace();
-                                }
-                            }){
-                                @Override
-                                protected Map<String, String> getParams() throws AuthFailureError {
-                                    SharedPreferences prefs = getSharedPreferences("SongShareLogin",MODE_PRIVATE);
-                                    Map<String,String> params = new HashMap<String, String>();
-
-                                    params.put("_id",Integer.toString(prefs.getInt("SongShareId",0)));
-                                    params.put("title", SongTitleField.getText().toString());
-                                    params.put("artist", ArtistField.getText().toString());
-
-                                    return params;
-                                }
-                            };
-                            req.add(ShareTrack);
-                        }
-                    });
                 }
             }
         }
@@ -165,11 +124,13 @@ public class MainActivity extends AppCompatActivity {
             //We have made it through the Spotify authentication.
             AuthenticationResponse response = AuthenticationClient.getResponse(resultCode,data);
             final String accessToken = response.getAccessToken();
+
             if(response.getType() == AuthenticationResponse.Type.TOKEN){
                 StringRequest SpotInfo = new StringRequest(Request.Method.GET, "https://api.spotify.com/v1/tracks/"+spotID, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try{
+                            Log.d("SPOTIFY INFO",response);
                             final JSONObject resultSong = ParseSpotifyInfo(new JSONObject(response));
                             SongTitleField.setText(resultSong.getString("title"));
                             ArtistField.setText(resultSong.getString("artist"));
@@ -214,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
                                                 params.put("title", resultSong.getString("title"));
                                                 params.put("artist", resultSong.getString("artist"));
                                                 params.put("art",resultSong.getString("art"));
+                                                params.put("spotify_id",resultSong.getString("uri"));
                                             }catch(Exception e){
                                                 Toast.makeText(getApplicationContext(),"ERROR SHARING TRACK TO DATABASE",Toast.LENGTH_LONG).show();
                                             }
@@ -246,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
                 };
                 req.add(SpotInfo);
             }else{
+                Log.d("SPOT ERROR",response.getError().toString());
                 Toast.makeText(getApplicationContext(),"ERROR AUTHENTICATING WITH SPOTIFY",Toast.LENGTH_LONG).show();
             }
         }
@@ -262,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void SendAPIRequest(String artist,String track){
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        final RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=d416d5b04ba1b47bf4aad5f6123889ba&artist="+artist.replace(" ","%20")+"&track="+track.replace(" ","%20")+"&format=json";
         JsonObjectRequest req = new JsonObjectRequest(url, null,
                 new Response.Listener<JSONObject>() {
@@ -278,10 +241,58 @@ public class MainActivity extends AppCompatActivity {
                                 try{
                                     album = track.getJSONObject("album");
                                     JSONArray covers = album.getJSONArray("image");
-                                    JSONObject largeImage = covers.getJSONObject(2);
+                                    final JSONObject largeImage = covers.getJSONObject(2);
                                     musicData.setArt(largeImage.getString("#text"));
                                     AlbumArtLoader load = new AlbumArtLoader(albumImage,largeImage.getString("#text"),imageSpinner);
                                     load.execute("");
+
+                                    ShareBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            StringRequest ShareTrack = new StringRequest(Request.Method.POST, "http://104.236.66.72:5698/share/create", new Response.Listener<String>() {
+                                                @Override
+                                                public void onResponse(String response) {
+
+                                                    try{
+                                                        JSONObject obj = new JSONObject(response);
+
+                                                        if(obj.getString("TYPE").equals("SUCCESS")){
+                                                            Toast.makeText(getApplicationContext(),"Track Shared",Toast.LENGTH_SHORT).show();
+                                                            finish();
+                                                        }else{
+                                                            Toast.makeText(getApplicationContext(),"There seems to have been an issue sharing this track.",Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }catch(Exception e){
+                                                        System.out.println("ERROR SHARING MEDIA");
+                                                    }
+                                                }
+                                            }, new Response.ErrorListener() {
+                                                @Override
+                                                public void onErrorResponse(VolleyError error) {
+                                                    error.printStackTrace();
+                                                }
+                                            }){
+                                                @Override
+                                                protected Map<String, String> getParams() throws AuthFailureError {
+                                                    Map<String,String> params = new HashMap<String, String>();
+
+                                                    try{
+                                                        SharedPreferences prefs = getSharedPreferences("SongShareLogin",MODE_PRIVATE);
+
+                                                        params.put("_id",Integer.toString(prefs.getInt("SongShareId",0)));
+                                                        params.put("title", SongTitleField.getText().toString());
+                                                        params.put("artist", ArtistField.getText().toString());
+                                                        params.put("art",largeImage.getString("#text"));
+                                                    }catch(Exception e){
+
+                                                    }
+
+                                                    return params;
+                                                }
+                                            };
+                                            queue.add(ShareTrack);
+                                        }
+                                    });
                                 }catch (JSONException e){
                                     Toast.makeText(getApplicationContext(),"Unable to find album art for track.",Toast.LENGTH_SHORT).show();
                                     imageSpinner.setVisibility(View.GONE);
@@ -308,6 +319,7 @@ public class MainActivity extends AppCompatActivity {
             parsedObj.put("title",data.getString("name"));
             parsedObj.put("artist",data.getJSONObject("album").getJSONArray("artists").getJSONObject(0).getString("name"));
             parsedObj.put("art",data.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url"));
+            parsedObj.put("uri",data.getString("uri"));
         }catch(Exception e){
             Toast.makeText(getApplicationContext(),"ERROR PARSING SONG DATA",Toast.LENGTH_LONG).show();
         }

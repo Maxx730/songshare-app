@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- activity_screen_slide.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/SongShareMainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/SongSharePager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+    <LinearLayout
+        android:id="@+id/SearchTopStatic"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#88000000"
+        android:focusableInTouchMode="false">
+
+        <ImageView
+            android:id="@+id/SearchIcon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:padding="12dp"
+            android:src="@drawable/search_icon" />
+
+        <EditText
+            android:id="@+id/SearchTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:hint="Search"
+            android:inputType="textPersonName"
+            android:textColorHint="#77FFFFFF" />
+
+    </LinearLayout>
+
+</RelativeLayout>

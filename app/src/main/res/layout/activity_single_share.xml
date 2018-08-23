@@ -12,100 +12,110 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="150dp" />
+        android:padding="150dp"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/SingleShareImageLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_weight="1"
         android:background="@android:color/background_dark"
         android:elevation="5dp"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/AlbumImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="fitStart"
-            app:srcCompat="@drawable/kawesome_case_smaller" />
-
-    </RelativeLayout>
-
-    <ScrollView
-        android:id="@+id/SingleShareScrollLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:gravity="bottom"
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/background_light"
             android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/SharedSingleTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="6"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="[Track Title]"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/SharedSingleArtist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_weight="6"
+                android:elevation="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:text="[Track Artist]"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/AlbumImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:elevation="5dp"
+                android:scaleType="fitEnd"
+                app:srcCompat="@color/colorPrimaryDark" />
 
-                <TextView
-                    android:id="@+id/SharedSingleTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="18dp"
-                    android:paddingTop="15dp"
-                    android:text="[Track Title]"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/SharedSingleArtist"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="18dp"
-                    android:text="[Track Artist]"
-                    android:textSize="24sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"></LinearLayout>
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="20dp"
-                    android:text="Open with..."
-                    android:textAlignment="center" />
-
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:background="@drawable/open_spotify_button"
-                    android:text="Spotify"
-                    android:textColor="@android:color/background_light" />
-
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/google_play_button"
-                    android:text="Google Play"
-                    android:textColor="@android:color/background_light" />
-            </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3">
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/funky_lines" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/OpenInSpotify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/open_spotify_button"
+                android:text="Spotify"
+                android:textColor="@android:color/background_light" />
+
+            <Button
+                android:id="@+id/OpenInGooglePlay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/google_play_button"
+                android:text="Google Play"
+                android:textColor="@android:color/background_light" />
+
+            <Button
+                android:id="@+id/OpenInYoutube"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/youtube_open_button"
+                android:text="YouTube"
+                android:textColor="@android:color/background_light" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>

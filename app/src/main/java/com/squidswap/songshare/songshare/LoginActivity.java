@@ -54,7 +54,6 @@ public class LoginActivity extends AppCompatActivity {
         passwordField = findViewById(R.id.PasswordField);
         errorText = findViewById(R.id.ErrorText);
 
-
         SignUpLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,7 +97,8 @@ public class LoginActivity extends AppCompatActivity {
                             edit.putString("SongSharePassword",password);
                             edit.putInt("SongShareId",payload.getInt("_id"));
                             edit.commit();
-                            Intent i = new Intent(getApplicationContext(),StreamView.class);
+
+                            Intent i = new Intent(getApplicationContext(),SongSharePagerMain.class);
                             startActivity(i);
                         }else{
                             errorText.setVisibility(View.VISIBLE);

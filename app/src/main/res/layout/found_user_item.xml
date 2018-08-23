@@ -38,8 +38,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="8"
-        android:background="@drawable/login_button"
-        android:text="Add"
-        android:textColor="@android:color/background_light" />
+        android:text="Add" />
 
 </LinearLayout>

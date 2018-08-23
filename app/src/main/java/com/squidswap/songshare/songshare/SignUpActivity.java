@@ -67,6 +67,7 @@ public class SignUpActivity extends AppCompatActivity {
                     StringRequest createUser = new StringRequest(Request.Method.POST, "http://104.236.66.72:5698/user/create", new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
+                            System.out.println(response);
                             try{
                                 JSONObject returnObj = new JSONObject(response);
 

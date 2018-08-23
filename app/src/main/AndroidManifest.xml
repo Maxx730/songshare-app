@@ -8,7 +8,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
@@ -20,14 +20,14 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity"></activity>
         <activity
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".StreamView" />
         <activity android:name=".SettingsScreen" />
-        <activity android:name=".ShareView">
+        <activity android:name=".SongSharePagerMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,7 +35,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".FindFriends" />
-        <activity android:name=".SingleShare"></activity>
+        <activity android:name=".SingleShare" />
+        <activity android:name=".ViewRequests"></activity>
     </application>
 
 </manifest>
