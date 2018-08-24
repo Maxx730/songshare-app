@@ -20,7 +20,7 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
         <activity
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
@@ -36,7 +36,8 @@
         </activity>
         <activity android:name=".FindFriends" />
         <activity android:name=".SingleShare" />
-        <activity android:name=".ViewRequests"></activity>
+        <activity android:name=".ViewRequests" />
+        <activity android:name=".UserDetails"></activity>
     </application>
 
 </manifest>

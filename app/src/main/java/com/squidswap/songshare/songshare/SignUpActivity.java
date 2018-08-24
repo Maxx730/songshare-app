@@ -72,7 +72,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 JSONObject returnObj = new JSONObject(response);
 
                                 if(returnObj.getString("STATUS").equals("SUCCESS")){
-                                    Intent i = new Intent(getApplicationContext(),FindFriends.class);
+                                    Intent i = new Intent(getApplicationContext(),SongSharePagerMain.class);
                                     SharedPreferences prefs = getSharedPreferences("SongShareLogin",MODE_PRIVATE);
                                     SharedPreferences.Editor edit = prefs.edit();
                                     edit.putString("SongShareUser",usernameField.getText().toString());

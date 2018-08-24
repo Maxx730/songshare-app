@@ -1,16 +1,22 @@
 package com.squidswap.songshare.songshare;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -19,6 +25,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -49,7 +60,6 @@ public class FriendsFragment extends Fragment {
             @Override
             public void onResponse(String response) {
                 try{
-                    System.out.println(response);
                     JSONObject rep = new JSONObject(response);
                     JSONArray friends = rep.optJSONArray("PAYLOAD");
                     ArrayList<JSONObject> objs = new ArrayList<JSONObject>();
@@ -82,14 +92,44 @@ public class FriendsFragment extends Fragment {
 
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater inflate = LayoutInflater.from(getActivity().getApplicationContext());
             convertView = inflate.inflate(R.layout.single_friend_item,parent,false);
 
             TextView username = convertView.findViewById(R.id.FriendUsername);
+            ImageView friendImage = convertView.findViewById(R.id.FriendImage);
+            Button friendDetails = convertView.findViewById(R.id.FriendDetailsButton);
+            final ProgressBar prog = convertView.findViewById(R.id.FriendLoadingAnim);
 
             try{
+                Log.d("DATA",getItem(position).toString());
                 username.setText(getItem(position).getString("username"));
+
+                Glide.with(getActivity().getApplicationContext()).load(getItem(position).getString("profile")).listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        prog.setVisibility(View.GONE);
+                        return false;
+                    }
+                }).into(friendImage);
+
+                friendDetails.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(getActivity().getApplicationContext(),UserDetails.class);
+                        try{
+                            i.putExtra("userId",getItem(position).getInt("_id"));
+                            startActivity(i);
+                        }catch(Exception e){
+
+                        }
+                    }
+                });
             }catch(Exception e){
                 System.out.println("ERROR BUILDING FRIEND LIST ITEM");
             }

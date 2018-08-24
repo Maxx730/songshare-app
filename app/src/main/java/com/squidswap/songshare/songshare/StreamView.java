@@ -124,66 +124,7 @@ public class StreamView extends AppCompatActivity {
             LayoutInflater inflate = LayoutInflater.from(getApplicationContext());
             convertView = inflate.inflate(R.layout.found_user_item,parent,false);
             TextView nameView = convertView.findViewById(R.id.UsernameView);
-            final Button addView = convertView.findViewById(R.id.AddFriendButton);
-            final ProgressBar loadingFriend = convertView.findViewById(R.id.AddFriendLoading);
 
-            try {
-                nameView.setText(getItem(position).getString("username"));
-
-                addView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        addView.setVisibility(View.GONE);
-                        loadingFriend.setVisibility(View.VISIBLE);
-
-                        String url = "http://104.236.66.72:5698/user/friend/add";
-                        final StringRequest addFriendReq = new StringRequest(Request.Method.POST,url, new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                try{
-                                    JSONObject rep = new JSONObject(response);
-
-                                    if(rep.getString("TYPE").equals("SUCCESS")){
-                                        //Remove the loading symbol.
-                                        loadingFriend.setVisibility(View.GONE);
-                                        addView.setVisibility(View.VISIBLE);
-                                        addView.setText("SENT");
-                                    }
-                                }catch(Exception e) {
-
-                                }
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-
-                            }
-                        }){
-                            @Override
-                            protected Map<String,String> getParams(){
-                                SharedPreferences prefs = getSharedPreferences("SongShareLogin",MODE_PRIVATE);
-                                String reciever;
-
-                                try {
-                                    int rec = getItem(position).getInt("_id");
-                                    reciever = Integer.toString(rec);
-                                } catch (JSONException e) {
-                                    reciever = "0";
-                                    e.printStackTrace();
-                                }
-
-                                Map<String,String> params = new HashMap<String, String>();
-                                params.put("sender",Integer.toString(prefs.getInt("SongShareId",0)));
-                                params.put("reciever", reciever);
-                                return params;
-                            }
-                        };
-                        searchQueue.add(addFriendReq);
-                    }
-                });
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
             return convertView;
         }

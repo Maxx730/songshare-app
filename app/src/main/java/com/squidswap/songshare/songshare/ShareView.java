@@ -78,7 +78,6 @@ public class ShareView extends AppCompatActivity {
         userFriends = findViewById(R.id.FriendsList);
         shareList = findViewById(R.id.ShareList);
         Shares = findViewById(R.id.ShareLayout);
-        Friends = findViewById(R.id.FriendsLayout);
 
     }
 

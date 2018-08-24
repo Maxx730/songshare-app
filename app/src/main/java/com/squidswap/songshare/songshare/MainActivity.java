@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(intentType != null && Intent.ACTION_SEND.equals(intentAction)){
             if("text/plain".equals(intentType)){
+
                 String songData = songShareIntent.getStringExtra(Intent.EXTRA_TEXT);
 
                 if(songData.indexOf("open.spotify.com") > -1){
@@ -105,6 +106,76 @@ public class MainActivity extends AppCompatActivity {
 
                     AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
 
+                }else if(songData.indexOf("youtu.be") > -1){
+                    final String youtubeID = songData.split("youtu.be")[1].substring(1);
+                    StringRequest youtubeDataReq = new StringRequest(Request.Method.GET, "https://www.googleapis.com/youtube/v3/videos?part=id%2C+snippet&id="+youtubeID+"&key=AIzaSyDzZKCdu3xvwIdPWA7aLhpGLCxaahP5G0U", new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try{
+                                Log.d("FROM YOUTUBE",response);
+                                final JSONObject responseObj = new JSONObject(response);
+                                SongTitleField.setText(responseObj.getJSONArray("items").getJSONObject(0).getJSONObject("snippet").getString("title"));
+                                ArtistField.setVisibility(View.GONE);
+                                AlbumArtLoader load = new AlbumArtLoader(albumImage,responseObj.getJSONArray("items").getJSONObject(0).getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("default").getString("url"),imageSpinner);
+                                load.execute("");
+
+                                ShareBtn.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        StringRequest youtubeShare = new StringRequest(Request.Method.POST, "http://104.236.66.72:5698/share/create", new Response.Listener<String>() {
+                                            @Override
+                                            public void onResponse(String response) {
+                                                try{
+                                                    JSONObject responseObj = new JSONObject(response);
+
+                                                    if(responseObj.getString("TYPE").equals("SUCCESS")){
+                                                        Toast.makeText(getApplicationContext(),"Youtube video shared...",Toast.LENGTH_SHORT).show();
+                                                        finish();
+                                                    }else{
+                                                        Toast.makeText(getApplicationContext(),"Error sharing Youtube video...",Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }catch(Exception e){
+
+                                                }
+                                            }
+                                        }, new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+
+                                            }
+                                        }){
+                                            @Override
+                                            protected Map<String, String> getParams() throws AuthFailureError {
+                                                HashMap<String,String> params = new HashMap<String,String>();
+                                                SharedPreferences prefs = getSharedPreferences("SongShareLogin",MODE_PRIVATE);
+
+                                                try{
+                                                    params.put("_id",Integer.toString(prefs.getInt("SongShareId",0)));
+                                                    params.put("title", responseObj.getJSONArray("items").getJSONObject(0).getJSONObject("snippet").getString("title"));
+                                                    params.put("artist", "");
+                                                    params.put("art",responseObj.getJSONArray("items").getJSONObject(0).getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("default").getString("url"));
+                                                    params.put("youtube_id",youtubeID);
+                                                }catch(Exception e){
+                                                    Toast.makeText(getApplicationContext(),"Error sharing Youtube video...",Toast.LENGTH_SHORT).show();
+                                                }
+
+                                                return params;
+                                            }
+                                        };
+                                        req.add(youtubeShare);
+                                    }
+                                });
+                            }catch(Exception e){
+                                Toast.makeText(getApplicationContext(),"Error getting Youtube video data...",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    });
+                    req.add(youtubeDataReq);
                 }else{
                     musicData = GetSongAndArtist(songShareIntent.getStringExtra(Intent.EXTRA_TEXT));
                     SongTitleField.setText(musicData.getTitle());
@@ -119,6 +190,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        Toast.makeText(getApplicationContext(),String.valueOf(data.getStringExtra(Intent.EXTRA_TEXT)),Toast.LENGTH_SHORT).show();
 
         if(requestCode == 1337){
             //We have made it through the Spotify authentication.
@@ -144,7 +217,6 @@ public class MainActivity extends AppCompatActivity {
                                     StringRequest ShareTrack = new StringRequest(Request.Method.POST, "http://104.236.66.72:5698/share/create", new Response.Listener<String>() {
                                         @Override
                                         public void onResponse(String response) {
-                                            System.out.println(response);
                                             try{
                                                 JSONObject obj = new JSONObject(response);
                                                 System.out.println(response);

@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,7 @@ public class SharesFragment extends Fragment {
         StringRequest getShares = new StringRequest(Request.Method.GET, "http://104.236.66.72:5698/user/" + String.valueOf(prefs.getInt("SongShareId", 0)) + "/shares", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.d("FROM SONGSHARE SERVER",response);
                 try{
                     JSONObject mainObj = new JSONObject(response);
                     ArrayList<JSONObject> objs = new ArrayList<JSONObject>();
