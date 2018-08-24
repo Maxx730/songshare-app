@@ -45,6 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="6dp"
                 android:layout_weight="1"
                 android:text="[Username]"
                 android:textColor="@android:color/background_dark"
@@ -57,8 +58,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignTop="@+id/linearLayout"
-                android:layout_marginEnd="17dp"
-                android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:text="Details" />
         </LinearLayout>

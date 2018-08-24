@@ -41,6 +41,7 @@ public class FriendsFragment extends Fragment {
 
     private ListView FriendsList;
     private RequestQueue req;
+    private TextView friendsText,swipeRight;
 
     @Nullable
     @Override
@@ -49,6 +50,8 @@ public class FriendsFragment extends Fragment {
 
         FriendsList = rootView.findViewById(R.id.FriendsList);
         req = Volley.newRequestQueue(getActivity().getApplicationContext());
+        friendsText = rootView.findViewById(R.id.NoFriendsText);
+        swipeRight = rootView.findViewById(R.id.NoFriendsSwipe);
         LoadFriends();
 
         return rootView;
@@ -66,6 +69,11 @@ public class FriendsFragment extends Fragment {
 
                     for(int i = 0;i < friends.length();i++) {
                         objs.add(friends.getJSONObject(i));
+                    }
+
+                    if(objs.size() > 0){
+                         friendsText.setVisibility(View.GONE);
+                         swipeRight.setVisibility(View.GONE);
                     }
 
                     FriendListAdapter friendList = new FriendListAdapter(getActivity().getApplicationContext(),R.layout.single_friend_item,objs);
