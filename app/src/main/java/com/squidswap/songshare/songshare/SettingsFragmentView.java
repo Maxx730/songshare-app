@@ -18,7 +18,7 @@ public class SettingsFragmentView extends Fragment {
     private SharedPreferences prefs;
     private SharedPreferences.Editor edit;
     private Switch InstructShow,SettingsIcon;
-    private LinearLayout ToFindFriends,ToRequests;
+    private LinearLayout ToFindFriends,ToRequests,EditProfile;
 
     @Nullable
     @Override
@@ -33,6 +33,15 @@ public class SettingsFragmentView extends Fragment {
         LogoutButton = rootView.findViewById(R.id.LogoutButton);
         ToFindFriends = rootView.findViewById(R.id.FindFriendsLayout);
         ToRequests = rootView.findViewById(R.id.ViewRequestsLayout);
+        EditProfile = rootView.findViewById(R.id.EditProfileLayout);
+
+        EditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity().getApplicationContext(),EditProfileOptions.class);
+                startActivity(i);
+            }
+        });
 
         ToFindFriends.setOnClickListener(new View.OnClickListener() {
             @Override

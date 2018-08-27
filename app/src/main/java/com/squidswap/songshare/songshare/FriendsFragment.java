@@ -31,6 +31,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -102,19 +103,24 @@ public class FriendsFragment extends Fragment {
         @NonNull
         @Override
         public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            try{
+                FirebaseMessaging.getInstance().subscribeToTopic("stream_"+getItem(position).getString("username"));
+                Log.d("Subscripted To: ",getItem(position).getString("username"));
+            }catch(Exception e){
+                e.printStackTrace();
+                Log.d("Failed To","damn");
+            }
+
             LayoutInflater inflate = LayoutInflater.from(getActivity().getApplicationContext());
             convertView = inflate.inflate(R.layout.single_friend_item,parent,false);
 
             TextView username = convertView.findViewById(R.id.FriendUsername);
-            TextView joinDate = convertView.findViewById(R.id.FriendDateJoined);
-            ImageView friendImage = convertView.findViewById(R.id.FriendImage);
-            Button friendDetails = convertView.findViewById(R.id.FriendDetailsButton);
+            final ImageView friendImage = convertView.findViewById(R.id.FriendImage);
             final ProgressBar prog = convertView.findViewById(R.id.FriendLoadingAnim);
 
             try{
                 Log.d("DATA",getItem(position).toString());
                 username.setText(getItem(position).getString("username"));
-                joinDate.setText("Member since " + getItem(position).getString("joined"));
 
                 Glide.with(getActivity().getApplicationContext()).load(getItem(position).getString("profile")).listener(new RequestListener<Drawable>() {
                     @Override
@@ -125,22 +131,10 @@ public class FriendsFragment extends Fragment {
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                         prog.setVisibility(View.GONE);
+                        friendImage.setClipToOutline(true);
                         return false;
                     }
                 }).into(friendImage);
-
-                friendDetails.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(getActivity().getApplicationContext(),UserDetails.class);
-                        try{
-                            i.putExtra("userId",getItem(position).getInt("_id"));
-                            startActivity(i);
-                        }catch(Exception e){
-
-                        }
-                    }
-                });
             }catch(Exception e){
                 System.out.println("ERROR BUILDING FRIEND LIST ITEM");
             }

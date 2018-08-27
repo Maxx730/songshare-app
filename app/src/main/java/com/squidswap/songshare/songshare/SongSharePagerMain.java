@@ -1,18 +1,26 @@
 package com.squidswap.songshare.songshare;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.google.firebase.messaging.FirebaseMessaging;
 
 //Main Pager activity that serves as the main view of the application.
 public class SongSharePagerMain extends FragmentActivity {
@@ -32,6 +40,7 @@ public class SongSharePagerMain extends FragmentActivity {
             Intent i = new Intent(getApplicationContext(),LoginActivity.class);
             startActivity(i);
         }else{
+            CreateNotificationChannel();
             //Let the user know to swipe right or left to view friends and shares etc.
             Toast.makeText(getApplicationContext(),"Swipe Right to View Friends",Toast.LENGTH_SHORT).show();
             //Set the layout of the Fragment Activity to the view pager XML file.
@@ -49,8 +58,6 @@ public class SongSharePagerMain extends FragmentActivity {
             pager.setOnScrollChangeListener(new View.OnScrollChangeListener() {
                 @Override
                 public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    System.out.println("Slide: "+String.valueOf(pager.getCurrentItem()));
-
                     int page = pager.getCurrentItem();
 
                     if(page == 2){
@@ -60,6 +67,22 @@ public class SongSharePagerMain extends FragmentActivity {
                     }
                 }
             });
+        }
+    }
+
+    //Create our notification channel
+    private void CreateNotificationChannel(){
+        FirebaseMessaging.getInstance().subscribeToTopic("/topics/all");
+        //Check if we are in Oreo, if so we need to create a notification channel for
+        //our notification.
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "SongShareChannel";
+            String description = "Songshare Notification Channel";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("com.squidswap.songshare.songshare",name,importance);
+            channel.setDescription(description);
+            NotificationManager notManage = getSystemService(NotificationManager.class);
+            notManage.createNotificationChannel(channel);
         }
     }
 

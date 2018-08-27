@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                                                     params.put("artist", "");
                                                     params.put("art",responseObj.getJSONArray("items").getJSONObject(0).getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("default").getString("url"));
                                                     params.put("youtube_id",youtubeID);
+                                                    params.put("username",prefs.getString("SongShareUser",""));
                                                 }catch(Exception e){
                                                     Toast.makeText(getApplicationContext(),"Error sharing Youtube video...",Toast.LENGTH_SHORT).show();
                                                 }
@@ -248,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
                                                 params.put("artist", resultSong.getString("artist"));
                                                 params.put("art",resultSong.getString("art"));
                                                 params.put("spotify_id",resultSong.getString("uri"));
+                                                params.put("username",prefs.getString("SongShareUser",""));
                                             }catch(Exception e){
                                                 Toast.makeText(getApplicationContext(),"ERROR SHARING TRACK TO DATABASE",Toast.LENGTH_LONG).show();
                                             }
@@ -355,6 +357,7 @@ public class MainActivity extends AppCompatActivity {
                                                         params.put("title", SongTitleField.getText().toString());
                                                         params.put("artist", ArtistField.getText().toString());
                                                         params.put("art",largeImage.getString("#text"));
+                                                        params.put("username",prefs.getString("SongShareUser",""));
                                                     }catch(Exception e){
 
                                                     }

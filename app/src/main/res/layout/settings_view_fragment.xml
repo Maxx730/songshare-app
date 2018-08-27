@@ -21,10 +21,11 @@
         android:orientation="horizontal">
 
         <Switch
-            android:id="@+id/switch1"
+            android:id="@+id/RecieveNotifSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:checked="true"
             android:padding="17dp"
             android:text="@string/settings_notifications_show" />
     </LinearLayout>
@@ -134,7 +135,7 @@
         android:padding="15dp">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/EditProfileText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"

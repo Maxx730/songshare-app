@@ -8,6 +8,30 @@
     android:orientation="vertical"
     android:visibility="visible">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp"
+            android:text="Friends"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <GridView
+            android:id="@+id/UserGridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="3" />
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/NoFriendsText"
         android:layout_width="match_parent"
@@ -26,11 +50,5 @@
         android:text="Swipe right to get to settings and start adding friends!"
         android:textAlignment="center"
         android:textSize="18sp" />
-
-    <GridView
-        android:id="@+id/UserGridView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="3" />
 
 </RelativeLayout>
