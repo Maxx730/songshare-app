@@ -6,4 +6,7 @@
     <color name="toggleGray">#DEDEDE</color>
     <color name="slightGray">#F4F4F4</color>
     <color name="toggleWhite">#FFFFFF</color>
+    <color name="spotify_green">#1DB954</color>
+    <color name="youtube_red">#FF0000</color>
+    <color name="google_play_orange">#FD8C00</color>
 </resources>

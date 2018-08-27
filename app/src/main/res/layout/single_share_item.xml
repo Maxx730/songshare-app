@@ -29,9 +29,19 @@
             android:padding="100dp" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/ShareIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_weight="1"
+        android:background="@color/colorAccent">
+
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/slightGray"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -48,24 +58,16 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/source_indicator">
-
-                </RelativeLayout>
-
                 <TextView
                     android:id="@+id/SingleTrackTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="0dp"
                     android:layout_weight="1"
                     android:text="[Track Title]"
                     android:textAlignment="textEnd"
-                    android:textColor="@android:color/background_dark"
+                    android:textColor="#77000000"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -78,7 +80,7 @@
                 android:layout_weight="1"
                 android:text="[Artist]"
                 android:textAlignment="textEnd"
-                android:textColor="@android:color/background_dark"
+                android:textColor="#77000000"
                 android:textSize="14sp" />
 
             <TextView
@@ -89,7 +91,7 @@
                 android:paddingBottom="7dp"
                 android:text="[Sharer]"
                 android:textAlignment="textEnd"
-                android:textColor="@android:color/background_dark"
+                android:textColor="#77000000"
                 android:textStyle="italic"
                 android:visibility="visible" />
 

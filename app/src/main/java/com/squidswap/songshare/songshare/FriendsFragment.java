@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -39,7 +40,7 @@ import java.util.ArrayList;
 //FRAGMENT LAYOUT FOR FRIENDS THAT WILL BE INSIDE THE VIEW PAGER OBJECT.
 public class FriendsFragment extends Fragment {
 
-    private ListView FriendsList;
+    private GridView FriendsList;
     private RequestQueue req;
     private TextView friendsText,swipeRight;
 
@@ -48,7 +49,7 @@ public class FriendsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.friends_view_fragment,container,false);
 
-        FriendsList = rootView.findViewById(R.id.FriendsList);
+        FriendsList = rootView.findViewById(R.id.UserGridView);
         req = Volley.newRequestQueue(getActivity().getApplicationContext());
         friendsText = rootView.findViewById(R.id.NoFriendsText);
         swipeRight = rootView.findViewById(R.id.NoFriendsSwipe);
@@ -105,6 +106,7 @@ public class FriendsFragment extends Fragment {
             convertView = inflate.inflate(R.layout.single_friend_item,parent,false);
 
             TextView username = convertView.findViewById(R.id.FriendUsername);
+            TextView joinDate = convertView.findViewById(R.id.FriendDateJoined);
             ImageView friendImage = convertView.findViewById(R.id.FriendImage);
             Button friendDetails = convertView.findViewById(R.id.FriendDetailsButton);
             final ProgressBar prog = convertView.findViewById(R.id.FriendLoadingAnim);
@@ -112,6 +114,7 @@ public class FriendsFragment extends Fragment {
             try{
                 Log.d("DATA",getItem(position).toString());
                 username.setText(getItem(position).getString("username"));
+                joinDate.setText("Member since " + getItem(position).getString("joined"));
 
                 Glide.with(getActivity().getApplicationContext()).load(getItem(position).getString("profile")).listener(new RequestListener<Drawable>() {
                     @Override

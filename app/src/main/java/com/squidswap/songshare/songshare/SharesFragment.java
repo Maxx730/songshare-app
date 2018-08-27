@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -126,6 +127,18 @@ public class SharesFragment extends Fragment {
                 singleShareTitle.setText(getItem(position).getString("title"));
                 singleShareArtist.setText(getItem(position).getString("artist"));
                 singleShareShaerer.setText("Shared by " + getItem(position).getString("username"));
+
+                if(getItem(position).getString("spotify_id").equals("") == false){
+                    RelativeLayout indi = convertView.findViewById(R.id.ShareIndicator);
+                    indi.setBackgroundColor(getResources().getColor(R.color.spotify_green));
+                }else if(getItem(position).getString("youtube_id").equals("") == false){
+                    RelativeLayout indi = convertView.findViewById(R.id.ShareIndicator);
+                    indi.setBackgroundColor(getResources().getColor(R.color.youtube_red));
+                }else{
+                    RelativeLayout indi = convertView.findViewById(R.id.ShareIndicator);
+                    indi.setBackgroundColor(getResources().getColor(R.color.google_play_orange));
+                }
+
                 Glide.with(convertView).load(getItem(position).getString("art")).transition(DrawableTransitionOptions.withCrossFade()).listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {

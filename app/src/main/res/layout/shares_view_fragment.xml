@@ -34,6 +34,7 @@
         android:divider="@android:color/background_light"
         android:dividerHeight="0dp"
         android:fadingEdge="vertical"
-        android:outlineProvider="bounds" />
+        android:outlineProvider="bounds"
+        android:numColumns="2"/>
 
 </RelativeLayout>
