@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -119,7 +120,6 @@ public class FriendsFragment extends Fragment {
             final ProgressBar prog = convertView.findViewById(R.id.FriendLoadingAnim);
 
             try{
-                Log.d("DATA",getItem(position).toString());
                 username.setText(getItem(position).getString("username"));
 
                 Glide.with(getActivity().getApplicationContext()).load(getItem(position).getString("profile")).listener(new RequestListener<Drawable>() {
@@ -132,6 +132,21 @@ public class FriendsFragment extends Fragment {
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                         prog.setVisibility(View.GONE);
                         friendImage.setClipToOutline(true);
+
+                        friendImage.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent i = new Intent(getActivity().getApplicationContext(),UserDetails.class);
+
+                                try{
+                                    i.putExtra("userId",getItem(position).getInt("_id"));
+                                    startActivity(i);
+                                }catch(Exception e){
+                                    Toast.makeText(getActivity().getApplicationContext(),"Error opening user details...",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
                         return false;
                     }
                 }).into(friendImage);

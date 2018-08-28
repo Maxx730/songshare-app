@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -19,7 +18,6 @@
             android:layout_height="70dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/round_outline"
-            android:elevation="3dp"
             android:scaleType="centerCrop"
             android:src="@drawable/generic_user" />
 
@@ -29,6 +27,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="100dp" />
+
+        <RelativeLayout
+            android:id="@+id/ShareBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/share_count_badge"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp">
+
+            <TextView
+                android:id="@+id/ShareCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="120"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <LinearLayout
@@ -37,7 +55,6 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_weight="1"
-        android:background="@android:color/background_light"
         android:orientation="vertical">
 
         <LinearLayout

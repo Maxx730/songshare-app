@@ -199,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
             AuthenticationResponse response = AuthenticationClient.getResponse(resultCode,data);
             final String accessToken = response.getAccessToken();
 
+            Log.d("AUTH TYPE",response.getType().toString());
             if(response.getType() == AuthenticationResponse.Type.TOKEN){
                 StringRequest SpotInfo = new StringRequest(Request.Method.GET, "https://api.spotify.com/v1/tracks/"+spotID, new Response.Listener<String>() {
                     @Override
@@ -282,6 +283,7 @@ public class MainActivity extends AppCompatActivity {
                 };
                 req.add(SpotInfo);
             }else{
+                Toast.makeText(getApplicationContext(),"TYPE:"+response.getError(),Toast.LENGTH_LONG).show();
                 Log.d("SPOT ERROR",response.getError().toString());
                 Toast.makeText(getApplicationContext(),"ERROR AUTHENTICATING WITH SPOTIFY",Toast.LENGTH_LONG).show();
             }
