@@ -5,27 +5,23 @@
     android:id="@+id/SongShareMainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_dark"
     android:focusableInTouchMode="true">
-
-    <ImageView
-        android:id="@+id/imageView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:src="@drawable/gray_wave" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/SongSharePager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:background="@color/background_dark"
+        android:paddingTop="10dp" />
 
     <LinearLayout
         android:id="@+id/SearchTopStatic"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@android:color/background_light"
+        android:background="#323233"
         android:elevation="5dp"
         android:focusableInTouchMode="false">
 
@@ -46,7 +42,7 @@
             android:ems="10"
             android:hint="Search"
             android:inputType="textPersonName"
-            android:textColorHint="@color/toggleGray" />
+            android:textColorHint="#49494A" />
 
     </LinearLayout>
 

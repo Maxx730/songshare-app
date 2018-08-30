@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="15dp"
-            android:src="@drawable/solid_settings" />
+            android:src="@drawable/ic_round_settings_24px" />
 
         <TextView
             android:id="@+id/SettingsTitle"
@@ -28,7 +28,6 @@
             android:paddingBottom="15dp"
             android:paddingRight="15dp"
             android:paddingTop="15dp"
-            android:text="Settings"
             android:textSize="30sp" />
     </LinearLayout>
 
@@ -108,7 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:src="@drawable/chevron_right" />
+            android:src="@drawable/ic_round_visibility_24px" />
 
     </LinearLayout>
 
@@ -132,7 +131,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:src="@drawable/chevron_right" />
+            android:src="@drawable/ic_round_search_24px" />
 
     </LinearLayout>
 
@@ -165,7 +164,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:src="@drawable/chevron_right" />
+            android:src="@drawable/ic_baseline_create_24px" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LogoutLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/LogoutText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_weight="1"
+            android:text="Logout" />
+
+        <ImageView
+            android:id="@+id/LogoutIcon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:src="@drawable/ic_round_exit_to_app_24px" />
 
     </LinearLayout>
 

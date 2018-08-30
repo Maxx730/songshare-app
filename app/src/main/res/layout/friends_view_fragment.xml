@@ -16,51 +16,17 @@
         android:layout_marginTop="60dp"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="25dp">
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingBottom="10dp"
-                android:paddingLeft="0dp"
-                android:paddingTop="10dp"
-                android:text="Friends"
-                android:textSize="24sp" />
-        </LinearLayout>
-
         <GridView
             android:id="@+id/UserGridView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:numColumns="3" />
+            android:clipToPadding="false"
+            android:horizontalSpacing="10dp"
+            android:numColumns="2"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:verticalSpacing="10dp" />
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/NoFriendsText"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:text="No Friends :( "
-        android:textAlignment="center"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/NoFriendsSwipe"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:gravity="center_vertical"
-        android:text="Swipe right to get to settings and start adding friends!"
-        android:textAlignment="center"
-        android:textSize="18sp" />
 
 </RelativeLayout>

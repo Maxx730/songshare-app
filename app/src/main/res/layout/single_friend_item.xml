@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:background="@android:color/background_light"
+    android:elevation="3dp"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,10 +15,9 @@
 
         <ImageView
             android:id="@+id/FriendImage"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/round_outline"
             android:scaleType="centerCrop"
             android:src="@drawable/generic_user" />
 
@@ -28,28 +28,23 @@
             android:layout_height="wrap_content"
             android:padding="100dp" />
 
-        <RelativeLayout
-            android:id="@+id/ShareBadge"
+        <TextView
+            android:id="@+id/FriendUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/share_count_badge"
-            android:paddingLeft="2dp"
-            android:paddingRight="2dp">
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_weight="1"
+            android:background="@android:color/background_light"
+            android:padding="10dp"
+            android:text="[Username]"
+            android:textAlignment="textStart"
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/ShareCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="120"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -61,22 +56,64 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-            <TextView
-                android:id="@+id/FriendUsername"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:layout_weight="1"
-                android:padding="10dp"
-                android:text="[Username]"
-                android:textAlignment="center"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:background="@drawable/expand_button"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp">
+
+                <ImageView
+                    android:id="@+id/imageView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_round_search_24px" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="3dp"
+                    android:text="Details"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/expand_button"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp">
+
+                <ImageView
+                    android:id="@+id/imageView143"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_round_search_24px" />
+
+                <TextView
+                    android:id="@+id/textView33"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="3dp"
+                    android:paddingRight="10dp"
+                    android:text="120"
+                    android:textStyle="bold" />
+            </RelativeLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

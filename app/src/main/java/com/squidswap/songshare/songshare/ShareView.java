@@ -75,7 +75,6 @@ public class ShareView extends AppCompatActivity {
         }
 
         req = Volley.newRequestQueue(getApplicationContext());
-        shareList = findViewById(R.id.ShareList);
         Shares = findViewById(R.id.ShareLayout);
 
     }

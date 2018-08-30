@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -47,14 +48,14 @@ import java.util.ArrayList;
 //FRAGMENT ACTIVITY CLASS THAT WILL DISPLAY THE SHARE VIEW IN THE VIEWPAGER OBJECT.
 public class SharesFragment extends Fragment {
 
-    private ListView SharesList;
+    private GridView SharesList;
     private RequestQueue req;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.shares_view_fragment,container,false);
 
-        SharesList = rootView.findViewById(R.id.ShareList);
+        SharesList = rootView.findViewById(R.id.SharesGridView);
         req = Volley.newRequestQueue(getActivity().getApplicationContext());
         LoadShares();
 
@@ -120,6 +121,7 @@ public class SharesFragment extends Fragment {
             final TextView singleShareTitle = convertView.findViewById(R.id.SingleTrackTitle);
             TextView singleShareArtist = convertView.findViewById(R.id.SingleTrackArtist);
             final ImageView sharedArtwork = convertView.findViewById(R.id.SingleAlbumArt);
+            final ImageView likeHeart = convertView.findViewById(R.id.TrackLikeHeart);
             TextView singleShareShaerer = convertView.findViewById(R.id.SingleShareSharer);
             final ProgressBar shareAnimation = convertView.findViewById(R.id.ShareLoadingAnim);
 
@@ -138,6 +140,14 @@ public class SharesFragment extends Fragment {
                     RelativeLayout indi = convertView.findViewById(R.id.ShareIndicator);
                     indi.setBackgroundColor(getResources().getColor(R.color.google_play_orange));
                 }
+
+                likeHeart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        likeHeart.animate().scaleX(1.2f).scaleY(1.2f).setDuration(500).start();
+                        likeHeart.setImageDrawable(getResources().getDrawable(R.drawable.heart_full));
+                    }
+                });
 
                 Glide.with(convertView).load(getItem(position).getString("art")).transition(DrawableTransitionOptions.withCrossFade()).listener(new RequestListener<Drawable>() {
                     @Override
