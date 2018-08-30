@@ -192,8 +192,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Toast.makeText(getApplicationContext(),String.valueOf(data.getStringExtra(Intent.EXTRA_TEXT)),Toast.LENGTH_SHORT).show();
-
         if(requestCode == 1337){
             //We have made it through the Spotify authentication.
             AuthenticationResponse response = AuthenticationClient.getResponse(resultCode,data);
@@ -221,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
                                         public void onResponse(String response) {
                                             try{
                                                 JSONObject obj = new JSONObject(response);
-                                                System.out.println(response);
+
                                                 if(obj.getString("TYPE").equals("SUCCESS")){
                                                     Toast.makeText(getApplicationContext(),"Track Shared",Toast.LENGTH_SHORT).show();
                                                     finish();
@@ -284,7 +282,6 @@ public class MainActivity extends AppCompatActivity {
                 req.add(SpotInfo);
             }else{
                 Toast.makeText(getApplicationContext(),"TYPE:"+response.getError(),Toast.LENGTH_LONG).show();
-                Log.d("SPOT ERROR",response.getError().toString());
                 Toast.makeText(getApplicationContext(),"ERROR AUTHENTICATING WITH SPOTIFY",Toast.LENGTH_LONG).show();
             }
         }
