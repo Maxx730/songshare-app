@@ -130,6 +130,7 @@ public class SharesFragment extends Fragment {
                 singleShareArtist.setText(getItem(position).getString("artist"));
                 singleShareShaerer.setText("Shared by " + getItem(position).getString("username"));
 
+
                 if(getItem(position).getString("spotify_id").equals("") == false){
                     RelativeLayout indi = convertView.findViewById(R.id.ShareIndicator);
                     indi.setBackgroundColor(getResources().getColor(R.color.spotify_green));
@@ -149,7 +150,7 @@ public class SharesFragment extends Fragment {
                     }
                 });
 
-                Glide.with(convertView).load(getItem(position).getString("art")).transition(DrawableTransitionOptions.withCrossFade()).listener(new RequestListener<Drawable>() {
+                Glide.with(getActivity().getApplicationContext()).load(getItem(position).getString("art")).listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                         return false;
@@ -177,7 +178,7 @@ public class SharesFragment extends Fragment {
                     }
                 });
             }catch(Exception e){
-
+                e.printStackTrace();
             }
 
             return convertView;

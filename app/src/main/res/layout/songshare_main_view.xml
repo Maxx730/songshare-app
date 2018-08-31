@@ -27,9 +27,8 @@
 
         <ImageView
             android:id="@+id/SearchIcon"
-            android:layout_width="match_parent"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
-            android:layout_weight="5"
             android:padding="12dp"
             android:src="@drawable/search_icon" />
 
@@ -43,6 +42,20 @@
             android:hint="Search"
             android:inputType="textPersonName"
             android:textColorHint="#49494A" />
+
+        <ImageView
+            android:id="@+id/SearchProfile"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:padding="12dp"
+            android:src="@drawable/ic_round_account_circle_24px" />
+
+        <ImageView
+            android:id="@+id/SearchRefresh"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:padding="12dp"
+            android:src="@drawable/ic_round_refresh_24px" />
 
     </LinearLayout>
 

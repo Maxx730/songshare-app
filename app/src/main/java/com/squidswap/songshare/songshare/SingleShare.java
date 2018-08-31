@@ -32,7 +32,7 @@ import org.json.JSONObject;
 public class SingleShare extends AppCompatActivity {
 
     private RequestQueue req;
-    private TextView SharerText,TitleText,ArtistText,AlbumText;
+    private TextView SharerText,TitleText,ArtistText,AlbumText,BackToMain;
     private ImageView albumImage;
     private Intent data;
     private ProgressBar singleShareLoading;
@@ -54,9 +54,18 @@ public class SingleShare extends AppCompatActivity {
         singeShareImage = findViewById(R.id.SingleShareImageLayout);
         openSpotify = findViewById(R.id.OpenInSpotify);
         openGooglePlay = findViewById(R.id.OpenInGooglePlay);
+        BackToMain = findViewById(R.id.BackToMain);
         pm = getPackageManager();
 
         data = getIntent();
+
+        BackToMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),SongSharePagerMain.class);
+                startActivity(i);
+            }
+        });
 
         req = Volley.newRequestQueue(getApplicationContext());
         StringRequest ShareRequest = new StringRequest(Request.Method.GET, "http://104.236.66.72:5698/share/"+data.getIntExtra("TrackID",1), new Response.Listener<String>() {
@@ -70,6 +79,8 @@ public class SingleShare extends AppCompatActivity {
                     TitleText.setText(payload.getString("title"));
                     ArtistText.setText(payload.getString("artist"));
                     Glide.with(getApplicationContext()).load(payload.getString("art")).into(albumImage);
+
+                    albumImage.animate().scaleY(1).scaleX(1).setDuration(500).start();
 
                     singleShareLoading.setVisibility(View.GONE);
                     singeShareImage.setVisibility(View.VISIBLE);

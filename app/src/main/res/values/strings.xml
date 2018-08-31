@@ -2,9 +2,9 @@
     <string name="app_name">songshare</string>
     <string name="title_activity_find_friends">FindFriends</string>
 
-    <string name="settings_swipe_instruct">Swiping Popup</string>
+    <string name="settings_swipe_instruct">Include Own Shares</string>
     <string name="settings_notifications_show">Recieve Notifications</string>
-    <string name="settings_screen_icon">Settings Icon (Top Right)</string>
+    <string name="settings_screen_icon">Include Own Shares</string>
     <string name="in_dev_notif">Please be aware this application is still in development with updates and changes currently in the works. </string>
     <string name="sign_up_text">Please fill out the required information below to start using the Songshare service. </string>
     <string name="required">* indicates a required field.</string>

@@ -24,7 +24,8 @@
             android:id="@+id/SearchLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#88000000"
+            android:background="#FFF"
+            android:elevation="5dp"
             android:focusableInTouchMode="true"
             android:padding="15dp">
 

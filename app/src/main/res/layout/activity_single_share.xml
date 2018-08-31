@@ -4,16 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_dark"
     android:orientation="vertical"
     tools:context="com.squidswap.songshare.songshare.SingleShare">
-
-    <ProgressBar
-        android:id="@+id/LoadingSingleShare"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="150dp"
-        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/SingleShareImageLayout"
@@ -21,78 +14,112 @@
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
         android:layout_weight="1"
-        android:background="@android:color/background_dark"
-        android:elevation="5dp"
         android:gravity="bottom"
         android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/background_light"
             android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/imageView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    app:srcCompat="@drawable/ic_round_chevron_left_24px" />
+
+                <TextView
+                    android:id="@+id/BackToMain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="Back"
+                    android:textColor="#FFF"
+                    android:textSize="18sp" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/SharedSingleTitle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="6"
-                android:paddingLeft="10dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:paddingTop="10dp"
-                android:text="[Track Title]"
+                android:text="Loading..."
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/SharedSingleArtist"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
-                android:layout_weight="6"
                 android:elevation="10dp"
                 android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
                 android:paddingTop="5dp"
-                android:text="[Track Artist]"
+                android:text="Loading..."
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
                 android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/AlbumImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@color/background_dark"
                 android:elevation="5dp"
-                android:scaleType="fitEnd"
+                android:scaleType="fitCenter"
+                android:scaleX=".1"
+                android:scaleY=".1"
                 app:srcCompat="@color/colorPrimaryDark" />
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/LoadingSingleShare"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="3">
-
-        <ImageView
-            android:id="@+id/imageView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/funky_lines" />
+        android:layout_weight="3"
+        android:paddingBottom="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/OpenWithText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Open with..."
+                android:textAlignment="center"
+                android:textColor="#49494A" />
+
             <Button
                 android:id="@+id/OpenInSpotify"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_height="50dp"
                 android:background="@drawable/open_spotify_button"
                 android:text="Spotify"
                 android:textColor="@android:color/background_light" />
@@ -104,7 +131,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/google_play_button"
                 android:text="Google Play"
-                android:textColor="@android:color/background_light" />
+                android:textColor="@android:color/background_light"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/OpenInYoutube"
@@ -113,7 +141,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/youtube_open_button"
                 android:text="YouTube"
-                android:textColor="@android:color/background_light" />
+                android:textColor="@android:color/background_light"
+                android:visibility="gone" />
         </LinearLayout>
 
     </RelativeLayout>

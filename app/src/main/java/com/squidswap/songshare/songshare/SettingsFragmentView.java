@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 
@@ -17,7 +18,7 @@ public class SettingsFragmentView extends Fragment {
     private Button LogoutButton;
     private SharedPreferences prefs;
     private SharedPreferences.Editor edit;
-    private Switch InstructShow,SettingsIcon;
+    private Switch InstructShow,SettingsIcon,RecieveNotifs,IncludeOwnShares;
     private LinearLayout ToFindFriends,ToRequests,EditProfile;
 
     @Nullable
@@ -34,6 +35,30 @@ public class SettingsFragmentView extends Fragment {
         ToFindFriends = rootView.findViewById(R.id.FindFriendsLayout);
         ToRequests = rootView.findViewById(R.id.ViewRequestsLayout);
         EditProfile = rootView.findViewById(R.id.EditProfileLayout);
+        RecieveNotifs = rootView.findViewById(R.id.RecieveNotifSwitch);
+        IncludeOwnShares = rootView.findViewById(R.id.IncludeOwnShares);
+
+        RecieveNotifs.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(RecieveNotifs.isChecked()){
+                    edit.putBoolean("RecieveNotifs",true);
+                }else{
+                    edit.putBoolean("RecieveNotifs",true);
+                }
+            }
+        });
+
+        IncludeOwnShares.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(IncludeOwnShares.isChecked()){
+                    edit.putBoolean("IncludeOwnShares",true);
+                }else{
+                    edit.putBoolean("IncludeOwnShares",true);
+                }
+            }
+        });
 
         EditProfile.setOnClickListener(new View.OnClickListener() {
             @Override

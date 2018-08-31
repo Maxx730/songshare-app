@@ -1,5 +1,7 @@
 package com.squidswap.songshare.songshare;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -16,6 +18,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -28,6 +31,7 @@ public class SongSharePagerMain extends FragmentActivity {
     private ViewPager pager;
     private SongSharePagerAdapter adapter;
     private LinearLayout SearchStaticLayout;
+    private ImageView RefreshButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,8 +55,22 @@ public class SongSharePagerMain extends FragmentActivity {
 
             //Grab the UI elements.
             pager = findViewById(R.id.SongSharePager);
+            RefreshButton = findViewById(R.id.SearchRefresh);
             adapter = new SongSharePagerAdapter(getSupportFragmentManager());
             pager.setAdapter(adapter);
+
+            RefreshButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    RefreshButton.animate().setDuration(700).rotation(720f).setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            RefreshButton.setRotation(0f);
+                            super.onAnimationEnd(animation);
+                        }
+                    }).start();
+                }
+            });
 
             //Show and hide certain UI elements based on the screen that has been scrolled to.
             pager.setOnScrollChangeListener(new View.OnScrollChangeListener() {

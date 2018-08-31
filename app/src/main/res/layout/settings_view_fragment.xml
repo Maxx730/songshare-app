@@ -53,13 +53,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="17dp"
-            android:text="@string/settings_screen_icon" />
     </LinearLayout>
 
     <LinearLayout
@@ -69,11 +62,11 @@
         android:orientation="horizontal">
 
         <Switch
-            android:id="@+id/switch12"
+            android:id="@+id/IncludeOwnShares"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:checked="true"
+            android:checked="false"
             android:padding="17dp"
             android:text="@string/settings_swipe_instruct" />
     </LinearLayout>
