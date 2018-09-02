@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ShareLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,19 +9,55 @@
     android:outlineProvider="paddedBounds"
     android:visibility="visible">
 
-    <GridView
-        android:id="@+id/SharesGridView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
-        android:clipToPadding="false"
-        android:fadingEdge="vertical"
-        android:fadingEdgeLength="50dp"
-        android:horizontalSpacing="10dp"
-        android:isScrollContainer="true"
-        android:numColumns="2"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:verticalSpacing="10dp" />
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:elevation="3dp"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp">
+
+            <ImageButton
+                android:id="@+id/ToggleMainTracks"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:padding="10dp"
+                android:src="@drawable/ic_round_audiotrack_24px" />
+
+            <ImageButton
+                android:id="@+id/ToggleMainVideos"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:padding="10dp"
+                android:src="@drawable/ic_round_movie_24px" />
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/SharesGridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:fadingEdge="vertical"
+            android:fadingEdgeLength="50dp"
+            android:horizontalSpacing="10dp"
+            android:isScrollContainer="true"
+            android:numColumns="2"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:verticalSpacing="10dp" />
+    </LinearLayout>
 
 </RelativeLayout>

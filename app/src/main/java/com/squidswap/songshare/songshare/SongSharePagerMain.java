@@ -78,7 +78,7 @@ public class SongSharePagerMain extends FragmentActivity {
                 public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                     int page = pager.getCurrentItem();
 
-                    if(page == 2){
+                    if(page == 3){
                         SearchStaticLayout.setVisibility(View.GONE);
                     }else{
                         SearchStaticLayout.setVisibility(View.VISIBLE);
@@ -123,6 +123,9 @@ public class SongSharePagerMain extends FragmentActivity {
                     ac = new FriendsFragment();
                     break;
                 case 2:
+                    ac = new GroupsFragment();
+                    break;
+                case 3:
                     ac = new SettingsFragmentView();
                     break;
                 default:
@@ -134,7 +137,7 @@ public class SongSharePagerMain extends FragmentActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
     }
 }

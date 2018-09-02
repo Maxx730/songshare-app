@@ -54,6 +54,7 @@
             android:id="@+id/SearchRefresh"
             android:layout_width="60dp"
             android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
             android:padding="12dp"
             android:src="@drawable/ic_round_refresh_24px" />
 

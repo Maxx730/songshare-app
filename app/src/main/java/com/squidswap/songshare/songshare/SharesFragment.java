@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -50,6 +53,7 @@ public class SharesFragment extends Fragment {
 
     private GridView SharesList;
     private RequestQueue req;
+    private ImageButton ToggleTracks,ToggleVideos;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -59,7 +63,34 @@ public class SharesFragment extends Fragment {
         req = Volley.newRequestQueue(getActivity().getApplicationContext());
         LoadShares();
 
+        //Load UI components here.
+        ToggleTracks = rootView.findViewById(R.id.ToggleMainTracks);
+        ToggleVideos = rootView.findViewById(R.id.ToggleMainVideos);
+        //Set the videos button to not focused.
+        ToggleVideos.getDrawable().setColorFilter(getResources().getColor(R.color.togglemain_gray), PorterDuff.Mode.MULTIPLY);
+
+        ToggleTracks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ResetColorsToggle();
+                ToggleTracks.getDrawable().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
+            }
+        });
+
+        ToggleVideos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ResetColorsToggle();
+                ToggleVideos.getDrawable().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
+            }
+        });
+
         return rootView;
+    }
+
+    private void ResetColorsToggle(){
+        ToggleTracks.getDrawable().setColorFilter(getResources().getColor(R.color.togglemain_gray), PorterDuff.Mode.MULTIPLY);
+        ToggleVideos.getDrawable().setColorFilter(getResources().getColor(R.color.togglemain_gray), PorterDuff.Mode.MULTIPLY);
     }
 
     //Loads all the shares for the given user from the database.
