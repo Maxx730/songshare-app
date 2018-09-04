@@ -1,6 +1,7 @@
 package com.squidswap.songshare.songshare;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -23,6 +25,7 @@ import org.json.JSONObject;
 public class GroupsFragment extends Fragment {
 
     private RequestQueue req;
+    private ImageButton CreateGroup;
 
     @Nullable
     @Override
@@ -31,6 +34,17 @@ public class GroupsFragment extends Fragment {
 
         //Grab our non UI elements
         req = Volley.newRequestQueue(getActivity().getApplicationContext());
+
+        //Grab UI elements
+        CreateGroup = rootView.findViewById(R.id.CreateGroupButton);
+
+        CreateGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity().getApplicationContext(),createGroupActivity.class);
+                startActivity(i);
+            }
+        });
 
         StringRequest groupString = new StringRequest(Request.Method.GET, "http://104.236.66.72:5698/groups", new Response.Listener<String>() {
             @Override

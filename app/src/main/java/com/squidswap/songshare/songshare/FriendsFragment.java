@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -45,6 +46,7 @@ public class FriendsFragment extends Fragment {
     private GridView FriendsList;
     private RequestQueue req;
     private TextView friendsText,swipeRight;
+    private ImageButton addFriend;
 
     @Nullable
     @Override
@@ -54,6 +56,16 @@ public class FriendsFragment extends Fragment {
         FriendsList = rootView.findViewById(R.id.UserGridView);
         req = Volley.newRequestQueue(getActivity().getApplicationContext());
         LoadFriends();
+
+        addFriend = rootView.findViewById(R.id.AddFriendButton);
+
+        addFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity().getApplicationContext(),FindFriends.class);
+                startActivity(i);
+            }
+        });
 
         return rootView;
     }

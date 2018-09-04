@@ -49,11 +49,13 @@
         <activity android:name=".SingleShare" />
         <activity android:name=".ViewRequests" />
         <activity android:name=".UserDetails" />
-        <activity android:name=".EditProfileOptions"></activity>
+        <activity android:name=".EditProfileOptions" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <activity android:name=".createGroupActivity"></activity>
     </application>
 
 </manifest>
