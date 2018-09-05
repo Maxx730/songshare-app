@@ -54,6 +54,7 @@ public class UserDetails extends AppCompatActivity {
     private LinearLayout bottomLayout;
     private UserDetailsBottomListener botListen;
     private GestureDetector gest;
+    private RelativeLayout ExitDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,14 @@ public class UserDetails extends AppCompatActivity {
         bottomLayout = findViewById(R.id.BottomInfoLayout);
         ExpandText = findViewById(R.id.ExpandText);
         ChevronUp = findViewById(R.id.ChevronUp);
+        ExitDetails = findViewById(R.id.ExitUserDetails);
+
+        ExitDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         final RelativeLayout.LayoutParams par = (RelativeLayout.LayoutParams) bottomLayout.getLayoutParams();
         ValueAnimator val = ValueAnimator.ofInt(100,400).setDuration(500);

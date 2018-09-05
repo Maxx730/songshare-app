@@ -18,6 +18,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -31,7 +32,7 @@ public class SongSharePagerMain extends FragmentActivity {
     private ViewPager pager;
     private SongSharePagerAdapter adapter;
     private LinearLayout SearchStaticLayout;
-    private ImageView RefreshButton;
+    private ImageView RefreshButton,ProfileButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,8 +57,17 @@ public class SongSharePagerMain extends FragmentActivity {
             //Grab the UI elements.
             pager = findViewById(R.id.SongSharePager);
             RefreshButton = findViewById(R.id.SearchRefresh);
+            ProfileButton = findViewById(R.id.SearchProfile);
             adapter = new SongSharePagerAdapter(getSupportFragmentManager());
             pager.setAdapter(adapter);
+
+            ProfileButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getApplicationContext(),EditProfileOptions.class);
+                    startActivity(i);
+                }
+            });
 
             RefreshButton.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -11,5 +11,6 @@
     <color name="google_play_orange">#FD8C00</color>
     <color name="background_dark">#191919</color>
     <color name="togglemain_gray">#323233</color>
+    <color name="light_gray_icon">#49494A</color>
     <color name="white">#FFFFFF</color>
 </resources>

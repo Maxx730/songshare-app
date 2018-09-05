@@ -1,6 +1,8 @@
 package com.squidswap.songshare.songshare;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -28,7 +30,7 @@ public class EditProfileOptions extends AppCompatActivity {
     private RequestQueue req;
     private SharedPreferences prefs;
     private EditText profileField;
-    private Button SaveChanges;
+    private Button SaveChanges,CancelChanges;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class EditProfileOptions extends AppCompatActivity {
         //Grab UI elements here.
         profileField = findViewById(R.id.ProfileValueField);
         SaveChanges = findViewById(R.id.SaveChangedButton);
+        CancelChanges = findViewById(R.id.CancelEditProfile);
 
         //LOAD THE USER INFO HERE.
         StringRequest userInf = new StringRequest(Request.Method.GET, "http://104.236.66.72:5698/user/"+String.valueOf(prefs.getInt("SongShareId",0)), new Response.Listener<String>() {
@@ -89,6 +92,27 @@ public class EditProfileOptions extends AppCompatActivity {
                     }
                 };
                 req.add(applyChanges);
+            }
+        });
+
+        CancelChanges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog alertDialog = new AlertDialog.Builder(EditProfileOptions.this).create();
+                alertDialog.setTitle("Are you sure you would like to cancel changes without saving?");
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE,"No",new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        alertDialog.hide();
+                    }
+                });
+                alertDialog.show();
             }
         });
     }

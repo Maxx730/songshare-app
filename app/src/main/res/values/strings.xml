@@ -1,11 +1,15 @@
 <resources>
     <string name="app_name">songshare</string>
     <string name="title_activity_find_friends">FindFriends</string>
-
+    <string name="group_creation_text">Fill out the fields below and select the users to invite to create the new group.</string>
     <string name="settings_swipe_instruct">Include Own Shares</string>
     <string name="settings_notifications_show">Recieve Notifications</string>
     <string name="settings_screen_icon">Include Own Shares</string>
     <string name="in_dev_notif">Please be aware this application is still in development with updates and changes currently in the works. </string>
     <string name="sign_up_text">Please fill out the required information below to start using the Songshare service. </string>
     <string name="required">* indicates a required field.</string>
+    <string name="select_user_spinner">Select User...</string>
+    <string name="only_creator_group">Only creator can add friends.</string>
+    <string name="coming_soon">Coming Soon!</string>
+    <string name="click_for_details">Tap for Details</string>
 </resources>

@@ -67,7 +67,7 @@ public class SharesFragment extends Fragment {
         ToggleTracks = rootView.findViewById(R.id.ToggleMainTracks);
         ToggleVideos = rootView.findViewById(R.id.ToggleMainVideos);
         //Set the videos button to not focused.
-        ToggleVideos.getDrawable().setColorFilter(getResources().getColor(R.color.togglemain_gray), PorterDuff.Mode.MULTIPLY);
+        ToggleVideos.getDrawable().setColorFilter(getResources().getColor(R.color.light_gray_icon), PorterDuff.Mode.MULTIPLY);
 
         ToggleTracks.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,8 +89,8 @@ public class SharesFragment extends Fragment {
     }
 
     private void ResetColorsToggle(){
-        ToggleTracks.getDrawable().setColorFilter(getResources().getColor(R.color.togglemain_gray), PorterDuff.Mode.MULTIPLY);
-        ToggleVideos.getDrawable().setColorFilter(getResources().getColor(R.color.togglemain_gray), PorterDuff.Mode.MULTIPLY);
+        ToggleTracks.getDrawable().setColorFilter(getResources().getColor(R.color.light_gray_icon), PorterDuff.Mode.MULTIPLY);
+        ToggleVideos.getDrawable().setColorFilter(getResources().getColor(R.color.light_gray_icon), PorterDuff.Mode.MULTIPLY);
     }
 
     //Loads all the shares for the given user from the database.

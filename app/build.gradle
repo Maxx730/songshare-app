@@ -6,8 +6,8 @@ android {
         applicationId "com.squidswap.songshare.songshare"
         minSdkVersion 23
         targetSdkVersion 27
-        versionCode 8
-        versionName "1.5.5"
+        versionCode 10
+        versionName "1.5.6.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -49,6 +49,7 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:17.3.0'
     compile 'jp.wasabeef:blurry:2.1.1'
     implementation 'com.android.support:gridlayout-v7:27.1.1'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 }
 
 

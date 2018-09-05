@@ -15,9 +15,8 @@
 
         <TextView
             android:id="@+id/textView13"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:paddingLeft="25dp"
             android:paddingTop="10dp"
             android:text="Groups"
@@ -25,20 +24,44 @@
 
         <ImageButton
             android:id="@+id/CreateGroupButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="12dp"
-            android:layout_weight="4"
-            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/round_fragment_button"
+            android:padding="10dp"
             android:src="@drawable/ic_round_add_24px" />
     </LinearLayout>
 
-    <android.support.v7.widget.GridLayout
-        android:id="@+id/GroupGridLayout"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        android:layout_height="match_parent">
 
-    </android.support.v7.widget.GridLayout>
+        <android.support.v7.widget.GridLayout
+            android:id="@+id/GroupGridLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
+
+        </android.support.v7.widget.GridLayout>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingTop="80dp"
+            android:text="@string/coming_soon"
+            android:textAlignment="center"
+            android:textColor="@color/light_gray_icon" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_round_cake_24px" />
+    </RelativeLayout>
+
 </LinearLayout>

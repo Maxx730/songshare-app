@@ -19,7 +19,7 @@ public class SettingsFragmentView extends Fragment {
     private SharedPreferences prefs;
     private SharedPreferences.Editor edit;
     private Switch InstructShow,SettingsIcon,RecieveNotifs,IncludeOwnShares;
-    private LinearLayout ToFindFriends,ToRequests,EditProfile;
+    private LinearLayout ToFindFriends,LogoutLayout,EditProfile;
 
     @Nullable
     @Override
@@ -32,11 +32,10 @@ public class SettingsFragmentView extends Fragment {
 
         //Grab our UI elements here.
         LogoutButton = rootView.findViewById(R.id.LogoutButton);
-        ToFindFriends = rootView.findViewById(R.id.FindFriendsLayout);
-        ToRequests = rootView.findViewById(R.id.ViewRequestsLayout);
         EditProfile = rootView.findViewById(R.id.EditProfileLayout);
         RecieveNotifs = rootView.findViewById(R.id.RecieveNotifSwitch);
         IncludeOwnShares = rootView.findViewById(R.id.IncludeOwnShares);
+        LogoutLayout = rootView.findViewById(R.id.LogoutLayout);
 
         RecieveNotifs.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -44,7 +43,7 @@ public class SettingsFragmentView extends Fragment {
                 if(RecieveNotifs.isChecked()){
                     edit.putBoolean("RecieveNotifs",true);
                 }else{
-                    edit.putBoolean("RecieveNotifs",true);
+                    edit.putBoolean("RecieveNotifs",false);
                 }
             }
         });
@@ -55,7 +54,7 @@ public class SettingsFragmentView extends Fragment {
                 if(IncludeOwnShares.isChecked()){
                     edit.putBoolean("IncludeOwnShares",true);
                 }else{
-                    edit.putBoolean("IncludeOwnShares",true);
+                    edit.putBoolean("IncludeOwnShares",false);
                 }
             }
         });
@@ -68,24 +67,8 @@ public class SettingsFragmentView extends Fragment {
             }
         });
 
-        ToFindFriends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity().getApplicationContext(),FindFriends.class);
-                startActivity(i);
-            }
-        });
-
-        ToRequests.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity().getApplicationContext(),ViewRequests.class);
-                startActivity(i);
-            }
-        });
-
         //Set the UI click events here.
-        LogoutButton.setOnClickListener(new View.OnClickListener() {
+        LogoutLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 edit.remove("SongShareUser");
