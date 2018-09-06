@@ -19,6 +19,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
 import android.widget.ImageView;
@@ -27,6 +29,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -39,15 +42,18 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class createGroupActivity extends AppCompatActivity {
 
     private RequestQueue req;
     private SharedPreferences prefs;
     private Button CancelCreation,CreateNextButton;
-    private EditText GroupTitle;
+    private EditText GroupTitle,GroupDescrip;
     private ListView ChoiceList;
-    private ArrayList<JSONObject> RetrievedUsers;
+    private ArrayList<ChosenUser> RetrievedUsers;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +66,14 @@ public class createGroupActivity extends AppCompatActivity {
         req = Volley.newRequestQueue(getApplicationContext());
         prefs = getSharedPreferences("SongShareLogin",MODE_PRIVATE);
 
+        final int UserID = prefs.getInt("SongShareId",0);
+
         //Grab our UI elements
         CancelCreation = findViewById(R.id.CancelCreateGroup);
         CreateNextButton = findViewById(R.id.CreateGroupNext);
         GroupTitle = findViewById(R.id.GroupTitle);
         ChoiceList = findViewById(R.id.SelectUsersList);
+        GroupDescrip = findViewById(R.id.GroupDescription);
         RetrievedUsers = new ArrayList<>();
 
         LoadFriends(req);
@@ -93,8 +102,48 @@ public class createGroupActivity extends AppCompatActivity {
         CreateNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(),AddFriends.class);
-                startActivity(i);
+                StringRequest createGroup = new StringRequest(Request.Method.POST, "http://104.236.66.72:5698/group/create", new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try{
+                            JSONObject obj = new JSONObject(response);
+
+                            if(obj.getString("TYPE").equals("SUCCESS")){
+                                Toast.makeText(getApplicationContext(),"Group Created!",Toast.LENGTH_SHORT).show();
+                                finish();
+                            }else{
+
+                            }
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        HashMap<String,String> params = new HashMap<>();
+                        ArrayList<Integer> ids = new ArrayList<>();
+
+                        for(int i = 0;i < RetrievedUsers.size();i++){
+                            if(RetrievedUsers.get(i).GetStatus()){
+                                ids.add(RetrievedUsers.get(i).UserId());
+                            }
+                        }
+
+                        params.put("creator",String.valueOf(UserID));
+                        params.put("title",GroupTitle.getText().toString());
+                        params.put("description",GroupDescrip.getText().toString());
+                        params.put("users",ids.toString());
+
+                        return params;
+                    }
+                };
+                req.add(createGroup);
             }
         });
 
@@ -130,7 +179,7 @@ public class createGroupActivity extends AppCompatActivity {
                     JSONArray ar = rep.getJSONArray("PAYLOAD");
 
                     for(int i = 0;i < ar.length();i++){
-                        RetrievedUsers.add(ar.getJSONObject(i));
+                        RetrievedUsers.add(new ChosenUser(ar.getJSONObject(i)));
                     }
 
                     ChoiceList.setAdapter(new AvailableFriends(getApplicationContext(),RetrievedUsers));
@@ -147,12 +196,12 @@ public class createGroupActivity extends AppCompatActivity {
         req.add(loadFriends);
     }
 
-    private class AvailableFriends extends ArrayAdapter<JSONObject>{
+    private class AvailableFriends extends ArrayAdapter<ChosenUser>{
 
         private Context con;
-        private ArrayList<JSONObject> friends;
+        private ArrayList<ChosenUser> friends;
 
-        public AvailableFriends(Context context,ArrayList<JSONObject> objs){
+        public AvailableFriends(Context context,ArrayList<ChosenUser> objs){
             super(context,0,objs);
 
             this.con = context;
@@ -161,19 +210,85 @@ public class createGroupActivity extends AppCompatActivity {
 
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             convertView = getLayoutInflater().inflate(R.layout.single_user_spin,parent,false);
             TextView username = convertView.findViewById(R.id.SpinUsername);
             ImageView profileImage = convertView.findViewById(R.id.UserSpinProfile);
+            CheckBox chooseUser = convertView.findViewById(R.id.ChooseUserCheck);
+
+            if(friends.get(position).isChecked){
+                chooseUser.setChecked(true);
+            }
+
+            chooseUser.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    friends.get(position).SetChecked(isChecked);
+                }
+            });
 
             try{
-                username.setText(this.friends.get(position).getString("username"));
-                Glide.with(getApplicationContext()).load(this.friends.get(position).getString("profile")).into(profileImage);
+                username.setText(this.friends.get(position).GetUsername());
+                Glide.with(getApplicationContext()).load(this.friends.get(position).GetProfile()).into(profileImage);
             }catch(Exception e){
-
+                e.printStackTrace();
             }
 
             return convertView;
+        }
+    }
+
+    private class ChosenUser{
+        private boolean isChecked;
+        private JSONObject data;
+
+        public ChosenUser(JSONObject data){
+            isChecked = false;
+            this.data = data;
+        }
+
+        public int UserId(){
+            int value = 0;
+
+            try{
+                value = data.getInt("_id");
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+            return value;
+        }
+
+        public String GetUsername(){
+            String value = "";
+
+            try{
+                value = data.getString("username");
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+            return value;
+        }
+
+        public String GetProfile(){
+            String value = "";
+
+            try{
+                value = data.getString("profile");
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+            return value;
+        }
+
+        public void SetChecked(boolean val){
+            this.isChecked = val;
+        }
+
+        public boolean GetStatus(){
+            return this.isChecked;
         }
     }
 }

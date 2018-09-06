@@ -33,13 +33,14 @@ public class SongSharePagerMain extends FragmentActivity {
     private SongSharePagerAdapter adapter;
     private LinearLayout SearchStaticLayout;
     private ImageView RefreshButton,ProfileButton;
+    private SharedPreferences check;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //Check if the user is already logged in or not.
-        SharedPreferences check = getSharedPreferences("SongShareLogin",MODE_PRIVATE);
+        check = getSharedPreferences("SongShareLogin",MODE_PRIVATE);
 
         if(!check.contains("SongShareUser") && !check.contains("SongSharePassword") && !check.contains("SongShareId")) {
             Intent i = new Intent(getApplicationContext(),LoginActivity.class);
@@ -101,6 +102,9 @@ public class SongSharePagerMain extends FragmentActivity {
     //Create our notification channel
     private void CreateNotificationChannel(){
         FirebaseMessaging.getInstance().subscribeToTopic("/topics/all");
+        FirebaseMessaging.getInstance().subscribeToTopic("friend_requests_"+String.valueOf(check.getInt("SongShareId",0)));
+        FirebaseMessaging.getInstance().subscribeToTopic("group_requests_"+String.valueOf(check.getInt("SongShareId",0)));
+
         //Check if we are in Oreo, if so we need to create a notification channel for
         //our notification.
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){

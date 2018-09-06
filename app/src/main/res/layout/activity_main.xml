@@ -23,7 +23,7 @@
                 android:id="@+id/AlbumImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:visibility="gone"
                 app:srcCompat="@android:color/transparent" />
 
@@ -38,16 +38,6 @@
                 android:padding="150dp"
                 android:theme="@android:style/Widget.Holo.ProgressBar.Small" />
 
-            <Button
-                android:id="@+id/ShareWithFriendsBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="10dp"
-                android:text="Share" />
-
         </RelativeLayout>
 
         <LinearLayout
@@ -58,6 +48,44 @@
             android:background="@android:color/background_dark"
             android:orientation="vertical"
             android:padding="20dp">
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Choose who to share with..."
+                android:textColor="@android:color/background_light" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/GroupSpinner"
+                    style="@style/Platform.Widget.AppCompat.Spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/share_dropdown"
+                    android:spinnerMode="dialog" />
+
+                <Button
+                    android:id="@+id/ShareWithFriendsBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/transparent_ui_button"
+                    android:text="Share"
+                    android:textColor="@android:color/background_light" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/SongTitleField"

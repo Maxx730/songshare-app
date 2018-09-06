@@ -25,7 +25,7 @@
         android:textColor="@android:color/background_light" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/ChooseUserCheck"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginRight="10dp"

@@ -22,7 +22,7 @@ public class SongshareFirebaseMessaging extends FirebaseMessagingService {
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        if(prefs.getBoolean("RecieveNotifs",false) == true){
+
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "com.squidswap.songshare.songshare")
                     .setSmallIcon(R.drawable.fontawesome_start)
                     .setContentTitle(remoteMessage.getNotification().getTitle())
@@ -31,7 +31,7 @@ public class SongshareFirebaseMessaging extends FirebaseMessagingService {
 
             NotificationManager manage = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             manage.notify(1,mBuilder.build());
-        }
+
 
         super.onMessageReceived(remoteMessage);
     }

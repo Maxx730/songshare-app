@@ -14,10 +14,13 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +44,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.security.acl.Group;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
     private RequestQueue req;
     private AuthenticationRequest spotReq;
     private String spotID = "11dFghVXANMlKmJXsNCbNl";
+    private Spinner GroupSpinner;
+    private int GroupID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
         commune = new DataCommunicator();
         ShareBtn = findViewById(R.id.ShareWithFriendsBtn);
         req = Volley.newRequestQueue(getApplicationContext());
+        GroupSpinner = findViewById(R.id.GroupSpinner);
+
+        LoadGroups(check.getInt("SongShareId",0));
 
 
         if(intentType != null && Intent.ACTION_SEND.equals(intentAction)){
@@ -214,7 +224,12 @@ public class MainActivity extends AppCompatActivity {
                             ShareBtn.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    StringRequest ShareTrack = new StringRequest(Request.Method.POST, "http://104.236.66.72:5698/share/create", new Response.Listener<String>() {
+                                    String url = "http://104.236.66.72:5698/share/create";
+
+                                    if(GroupID > 0){
+                                        url = "http://104.236.66.72:5698/group/share";
+                                    }
+                                    StringRequest ShareTrack = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                                         @Override
                                         public void onResponse(String response) {
                                             try{
@@ -249,6 +264,10 @@ public class MainActivity extends AppCompatActivity {
                                                 params.put("art",resultSong.getString("art"));
                                                 params.put("spotify_id",resultSong.getString("uri"));
                                                 params.put("username",prefs.getString("SongShareUser",""));
+
+                                                if(GroupID > 0){
+                                                    params.put("group_id",String.valueOf(GroupID));
+                                                }
                                             }catch(Exception e){
                                                 Toast.makeText(getApplicationContext(),"ERROR SHARING TRACK TO DATABASE",Toast.LENGTH_LONG).show();
                                             }
@@ -319,10 +338,16 @@ public class MainActivity extends AppCompatActivity {
                                     AlbumArtLoader load = new AlbumArtLoader(albumImage,largeImage.getString("#text"),imageSpinner);
                                     load.execute("");
 
+
                                     ShareBtn.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            StringRequest ShareTrack = new StringRequest(Request.Method.POST, "http://104.236.66.72:5698/share/create", new Response.Listener<String>() {
+                                            String url = "http://104.236.66.72:5698/share/create";
+
+                                            if(GroupID > 0){
+                                                url = "http://104.236.66.72:5698/group/share";
+                                            }
+                                            StringRequest ShareTrack = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                                                 @Override
                                                 public void onResponse(String response) {
 
@@ -357,6 +382,10 @@ public class MainActivity extends AppCompatActivity {
                                                         params.put("artist", ArtistField.getText().toString());
                                                         params.put("art",largeImage.getString("#text"));
                                                         params.put("username",prefs.getString("SongShareUser",""));
+
+                                                        if(GroupID > 0){
+                                                            params.put("group_id",String.valueOf(GroupID));
+                                                        }
                                                     }catch(Exception e){
 
                                                     }
@@ -399,6 +428,65 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return parsedObj;
+    }
+
+    private void LoadGroups(final int user_id){
+        StringRequest getGroups = new StringRequest(Request.Method.POST, "http://104.236.66.72:5698/groups", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try{
+                    JSONObject rep = new JSONObject(response);
+                    ArrayList<String> choices = new ArrayList<>();
+
+                    final JSONArray objs = rep.getJSONArray("PAYLOAD");
+                    choices.add("All");
+
+                    for(int i = 0;i < objs.length();i++){
+                        choices.add(objs.getJSONObject(i).getString("title"));
+                    }
+
+                    ArrayAdapter values = new ArrayAdapter(getApplicationContext(),R.layout.share_group_spinner,choices);
+                    GroupSpinner.setAdapter(values);
+
+                    GroupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            if(position > 0){
+                                try{
+                                    GroupID = objs.getJSONObject(position - 1).getInt("_id");
+                                }catch(Exception e){
+                                    e.printStackTrace();
+                                }
+                            }else{
+                                GroupID = 0;
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> params = new HashMap<>();
+
+                params.put("user_id",String.valueOf(user_id));
+
+                return params;
+            }
+        };
+        req.add(getGroups);
     }
 
 }

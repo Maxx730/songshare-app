@@ -60,7 +60,8 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".createGroupActivity" />
-        <activity android:name=".AddFriends"></activity>
+        <activity android:name=".AddFriends" />
+        <activity android:name=".SingleGroup"></activity>
     </application>
 
 </manifest>
