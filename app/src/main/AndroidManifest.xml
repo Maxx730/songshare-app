@@ -61,7 +61,8 @@
 
         <activity android:name=".createGroupActivity" />
         <activity android:name=".AddFriends" />
-        <activity android:name=".SingleGroup"></activity>
+        <activity android:name=".SingleGroup" />
+        <activity android:name=".GroupMembers"></activity>
     </application>
 
 </manifest>

@@ -90,28 +90,6 @@ public class UserDetails extends AppCompatActivity {
             }
         });
 
-        final RelativeLayout.LayoutParams par = (RelativeLayout.LayoutParams) bottomLayout.getLayoutParams();
-        ValueAnimator val = ValueAnimator.ofInt(100,400).setDuration(500);
-
-        val.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                par.height = Math.round((int) animation.getAnimatedValue() * getApplicationContext().getResources().getDisplayMetrics().density);
-                bottomLayout.setLayoutParams(par);
-            }
-        });
-
-        val.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                Blurry.with(getApplicationContext()).radius(30).sampling(1).onto((RelativeLayout) findViewById(R.id.BlurView));
-                Blurry.with(getApplicationContext()).capture(UserImage).into(UserImage);
-            }
-        });
-
-        val.start();
-
-        ChevronUp.animate().rotation(180).start();
 
         if(i.getIntExtra("userId",0) == prefs.getInt("SongShareId",0)){
             Toast.makeText(getApplicationContext(),"User can be edited.",Toast.LENGTH_SHORT).show();

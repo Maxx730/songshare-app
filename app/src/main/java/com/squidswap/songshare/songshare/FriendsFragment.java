@@ -111,10 +111,8 @@ public class FriendsFragment extends Fragment {
         public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             try{
                 FirebaseMessaging.getInstance().subscribeToTopic("stream_"+getItem(position).getString("username"));
-                Log.d("Subscripted To: ",getItem(position).getString("username"));
             }catch(Exception e){
                 e.printStackTrace();
-                Log.d("Failed To","damn");
             }
 
             LayoutInflater inflate = LayoutInflater.from(getActivity().getApplicationContext());

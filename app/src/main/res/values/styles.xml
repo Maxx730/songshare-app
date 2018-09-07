@@ -14,7 +14,15 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="SongShareStyle">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:tabWidgetStyle">@style/SongShareStyle.Tab</item>
+    </style>
+    <style name="SongShareStyle.Tab">
+        <item name="android:tabStripEnabled">false</item>
+        <item name="android:background">@drawable/transparent_ui_button</item>
+        <item name="android:textColor">@drawable/songshare_transparent_tab</item>
+    </style>
 </resources>
