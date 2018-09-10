@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ShareLayout"
     android:layout_width="match_parent"
@@ -12,20 +12,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/songshare_top_item"
             android:clipToPadding="false"
-            android:elevation="3dp"
             android:orientation="horizontal"
-            android:paddingBottom="15dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="15dp">
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Stream"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/ToggleMainTracks"
@@ -33,7 +40,8 @@
                 android:layout_height="40dp"
                 android:background="@drawable/round_fragment_button"
                 android:padding="10dp"
-                android:src="@drawable/ic_round_audiotrack_24px" />
+                android:src="@drawable/ic_round_audiotrack_24px"
+                android:visibility="gone" />
 
             <ImageButton
                 android:id="@+id/ToggleMainVideos"
@@ -42,7 +50,8 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/round_fragment_button"
                 android:padding="10dp"
-                android:src="@drawable/ic_round_movie_24px" />
+                android:src="@drawable/ic_round_movie_24px"
+                android:visibility="gone" />
         </LinearLayout>
 
         <GridView
@@ -51,13 +60,8 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:fadingEdge="vertical"
-            android:fadingEdgeLength="50dp"
-            android:horizontalSpacing="10dp"
             android:isScrollContainer="true"
-            android:numColumns="2"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:verticalSpacing="10dp" />
+            android:numColumns="1" />
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

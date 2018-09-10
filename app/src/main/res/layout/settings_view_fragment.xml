@@ -15,13 +15,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/songshare_top_search"
             android:fontFamily="@font/catamaran_medium"
             android:paddingBottom="15dp"
             android:paddingRight="15dp"
             android:paddingStart="15dp"
             android:paddingTop="15dp"
             android:text="Settings"
-            android:textColor="@android:color/background_light"
+            android:textColor="@android:color/background_dark"
             android:textSize="30sp" />
     </LinearLayout>
 
@@ -29,6 +30,7 @@
         android:id="@+id/InstructionsLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/songshare_list_item"
         android:orientation="horizontal">
 
         <Switch
@@ -39,7 +41,7 @@
             android:checked="true"
             android:padding="17dp"
             android:text="@string/settings_notifications_show"
-            android:textColor="@android:color/background_light" />
+            android:textColor="@android:color/background_dark" />
     </LinearLayout>
 
     <LinearLayout
@@ -54,6 +56,7 @@
         android:id="@+id/InstructionsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/songshare_list_item"
         android:orientation="horizontal">
 
         <Switch
@@ -64,16 +67,17 @@
             android:checked="false"
             android:padding="17dp"
             android:text="@string/settings_swipe_instruct"
-            android:textColor="@android:color/background_light" />
+            android:textColor="@android:color/background_dark" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/ProfileTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/songshare_top_search"
         android:padding="15dp"
         android:text="Profile"
-        android:textColor="@android:color/background_light"
+        android:textColor="@android:color/background_dark"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -81,6 +85,7 @@
         android:id="@+id/EditProfileLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/songshare_list_item"
         android:orientation="horizontal"
         android:padding="15dp">
 
@@ -91,7 +96,7 @@
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
             android:text="Edit"
-            android:textColor="@android:color/background_light" />
+            android:textColor="@android:color/background_dark" />
 
         <ImageView
             android:id="@+id/imageView132"
@@ -106,6 +111,7 @@
         android:id="@+id/LogoutLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/songshare_list_item"
         android:orientation="horizontal"
         android:padding="15dp"
         android:visibility="visible">
@@ -117,7 +123,7 @@
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
             android:text="Logout"
-            android:textColor="@android:color/background_light" />
+            android:textColor="@android:color/background_dark" />
 
         <ImageView
             android:id="@+id/LogoutIcon"

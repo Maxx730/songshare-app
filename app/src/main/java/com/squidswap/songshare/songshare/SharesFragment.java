@@ -62,22 +62,23 @@ public class SharesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView;
-        String value = "";
+        String value = "",id = "";
         req = Volley.newRequestQueue(getActivity().getApplicationContext());
 
         if(getArguments() != null){
             value = getArguments().getString("type");
+            id = getArguments().getString("group_id");
         }
 
         if(value.equals("group") && value != null){
             rootView = (ViewGroup) inflater.inflate(R.layout.group_shares_fragment,container,false);
 
             GroupShareList = rootView.findViewById(R.id.GroupShareListView);
-            LoadShares("group");
+            LoadShares("group",id);
         }else{
             rootView = (ViewGroup) inflater.inflate(R.layout.shares_view_fragment,container,false);
             SharesList = rootView.findViewById(R.id.SharesGridView);
-            LoadShares("all");
+            LoadShares("all",null);
 
             //Load UI components here.
             ToggleTracks = rootView.findViewById(R.id.ToggleMainTracks);
@@ -111,7 +112,7 @@ public class SharesFragment extends Fragment {
     }
 
     //Loads all the shares for the given user from the database.
-    private void LoadShares(String type){
+    private void LoadShares(String type,final String id){
 
         switch(type){
             case "group":
@@ -146,7 +147,7 @@ public class SharesFragment extends Fragment {
                     protected Map<String, String> getParams() throws AuthFailureError {
                         HashMap<String,String> params = new HashMap<>();
 
-                        params.put("group_id","1");
+                        params.put("group_id",id);
 
                         return params;
                     }
@@ -226,7 +227,13 @@ public class SharesFragment extends Fragment {
                     convertView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(getActivity().getApplicationContext(),"Testing",Toast.LENGTH_LONG).show();
+                            try{
+                                Intent i = new Intent(getActivity().getApplicationContext(),SingleShare.class);
+                                i.putExtra("TrackID",getItem(position).getInt("_id"));
+                                startActivity(i);
+                            }catch(Exception e){
+                                e.printStackTrace();
+                            }
                         }
                     });
                 }catch(Exception e){

@@ -67,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
                 android:padding="10dp"
                 android:text="Loading..."
                 android:textAlignment="viewEnd"
@@ -74,157 +75,58 @@
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/BottomInfoLayout"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:layout_weight="1"
-        android:animateLayoutChanges="true"
-        android:background="@android:color/background_light"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:id="@+id/ProfileCardTop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/profile_card_top"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/EditUserButton"
+            <TextView
+                android:id="@+id/userDetailName"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="3"
-                android:text="Edit"
-                android:visibility="gone" />
-
-            <ImageButton
-                android:id="@+id/SendRequestButton"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="1dp"
-                android:background="@color/slightGray"
-                android:paddingLeft="10dp"
-                android:paddingRight="8dp"
-                android:src="@drawable/ic_round_send_24px" />
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/expand_button"
-            android:paddingLeft="13dp">
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="20dp"
+                android:text="Joined "
+                android:textAlignment="textStart"
+                android:textColor="#FFF"
+                android:textSize="18sp"
+                android:textStyle="italic" />
 
             <TextView
-                android:id="@+id/ExpandText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="6dp"
-                android:text="Tap to Expand"
-                android:textAlignment="center"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/ChevronUp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="3dp"
-                app:srcCompat="@drawable/chevron_up" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/ExpandedDetailsLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
+                android:id="@+id/GroupMemberTitles"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginTop="15dp"
+                android:background="#66000000"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="Member"
+                android:textColor="@android:color/background_light" />
 
-                <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="10dp"
-                    android:text="[Join Date]"
-                    android:textAlignment="center" />
-
-                <TextView
-                    android:id="@+id/textView17"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="10dp"
-                    android:text="[Number of Shares]"
-                    android:textAlignment="center" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="TextView" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/background_light"
-        android:elevation="5dp"
-        android:padding="10dp"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/UserImageTextField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName" />
-
-            <LinearLayout
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/GroupMemberList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:background="#88000000"
+                android:layoutDirection="ltr"
+                android:orientation="horizontal"
+                android:padding="10dp" />
 
-                <Button
-                    android:id="@+id/SaveUserButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Save" />
+            <TextView
+                android:id="@+id/UserSharedTracks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#66000000"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="Shared Tracks"
+                android:textColor="@android:color/background_light" />
 
-                <Button
-                    android:id="@+id/CancelEditButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Cancel" />
-            </LinearLayout>
+            <ListView
+                android:id="@+id/UserSharesList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </LinearLayout>
+
     </RelativeLayout>
 
 </RelativeLayout>

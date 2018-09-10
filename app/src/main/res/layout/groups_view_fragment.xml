@@ -7,24 +7,28 @@
     android:layout_marginTop="60dp"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView13"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="25dp"
-                android:paddingTop="10dp"
+                android:background="@drawable/songshare_top_item"
+                android:padding="10dp"
                 android:text="Groups"
-                android:textColor="@android:color/background_light" />
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/CreateGroupButton"
@@ -33,7 +37,8 @@
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/round_fragment_button"
                 android:padding="10dp"
-                android:src="@drawable/ic_round_add_24px" />
+                android:src="@drawable/ic_round_add_24px"
+                android:visibility="gone" />
 
             <ImageButton
                 android:id="@+id/ShowInvitesButton"
@@ -42,23 +47,19 @@
                 android:layout_marginLeft="5dp"
                 android:background="@drawable/round_fragment_button"
                 android:padding="10dp"
-                android:src="@drawable/ic_round_inbox_24px" />
+                android:src="@drawable/ic_round_inbox_24px"
+                android:visibility="gone" />
         </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
+            android:layout_height="match_parent">
 
             <GridView
                 android:id="@+id/GroupList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="120dp"
-                android:horizontalSpacing="10dp"
-                android:numColumns="2"
-                android:verticalSpacing="10dp" />
+                android:numColumns="1" />
 
         </RelativeLayout>
 
@@ -126,6 +127,6 @@
 
             </LinearLayout>
         </RelativeLayout>
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

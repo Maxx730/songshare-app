@@ -58,6 +58,18 @@
             android:padding="10dp"
             android:textColorHint="#E5E5E5" />
 
+        <EditText
+            android:id="@+id/GroupProfileImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/text_input_form"
+            android:ems="10"
+            android:hint="Group Image"
+            android:inputType="textMultiLine"
+            android:padding="10dp"
+            android:textColorHint="#E5E5E5" />
+
         <Switch
             android:id="@+id/switch1"
             android:layout_width="match_parent"

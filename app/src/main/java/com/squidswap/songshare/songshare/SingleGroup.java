@@ -32,6 +32,7 @@ public class SingleGroup extends AppCompatActivity {
     private ViewPager pager;
     private RequestQueue req;
     private TextView GroupTitle,GroupDesc;
+    private String GROUP_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,10 @@ public class SingleGroup extends AppCompatActivity {
         pager = findViewById(R.id.GroupPager);
         adapter = new GroupPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(adapter);
+
+        //Grab the ID for the chosen group
+        Intent i = getIntent();
+        GROUP_ID = i.getStringExtra("GroupId");
     }
 
     private void LoadGroupInfo(){
@@ -76,7 +81,7 @@ public class SingleGroup extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> params = new HashMap<>();
 
-                params.put("group_id","1");
+                params.put("group_id",String.valueOf(GROUP_ID));
 
                 return params;
             }
@@ -99,6 +104,7 @@ public class SingleGroup extends AppCompatActivity {
                     ac = new SharesFragment();
                     Bundle shareType = new Bundle();
                     shareType.putString("type","group");
+                    shareType.putString("group_id",GROUP_ID);
                     ac.setArguments(shareType);
                     break;
                 default:

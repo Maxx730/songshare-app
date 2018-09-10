@@ -40,6 +40,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 //FRAGMENT LAYOUT FOR FRIENDS THAT WILL BE INSIDE THE VIEW PAGER OBJECT.
 public class FriendsFragment extends Fragment {
 
@@ -119,40 +121,12 @@ public class FriendsFragment extends Fragment {
             convertView = inflate.inflate(R.layout.single_friend_item,parent,false);
 
             TextView username = convertView.findViewById(R.id.FriendUsername);
-            final ImageView friendImage = convertView.findViewById(R.id.FriendImage);
-            final ProgressBar prog = convertView.findViewById(R.id.FriendLoadingAnim);
+            final CircleImageView friendImage = (CircleImageView) convertView.findViewById(R.id.FriendImage);
 
             try{
                 username.setText(getItem(position).getString("username"));
 
-                Glide.with(getActivity().getApplicationContext()).load(getItem(position).getString("profile")).listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        prog.setVisibility(View.GONE);
-                        friendImage.setClipToOutline(true);
-
-                        friendImage.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent i = new Intent(getActivity().getApplicationContext(),UserDetails.class);
-
-                                try{
-                                    i.putExtra("userId",getItem(position).getInt("_id"));
-                                    startActivity(i);
-                                }catch(Exception e){
-                                    Toast.makeText(getActivity().getApplicationContext(),"Error opening user details...",Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-
-                        return false;
-                    }
-                }).into(friendImage);
+                Glide.with(getActivity().getApplicationContext()).asBitmap().load(getItem(position).getString("profile")).into(friendImage);
             }catch(Exception e){
                 System.out.println("ERROR BUILDING FRIEND LIST ITEM");
             }

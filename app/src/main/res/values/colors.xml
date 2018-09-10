@@ -3,6 +3,7 @@
     <color name="colorPrimary">#DA43CC</color>
     <color name="colorPrimaryDark">#000</color>
     <color name="colorAccent">#E342F1</color>
+    <color name="colorComplementary">#91F142</color>
     <color name="toggleGray">#DEDEDE</color>
     <color name="slightGray">#F4F4F4</color>
     <color name="toggleWhite">#FFFFFF</color>

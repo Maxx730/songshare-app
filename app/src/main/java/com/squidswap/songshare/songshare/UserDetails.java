@@ -4,18 +4,25 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.gesture.Gesture;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -38,6 +45,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,6 +63,7 @@ public class UserDetails extends AppCompatActivity {
     private UserDetailsBottomListener botListen;
     private GestureDetector gest;
     private RelativeLayout ExitDetails;
+    private int USER_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,14 +82,7 @@ public class UserDetails extends AppCompatActivity {
 
         //Grab our UI elements here.
         UserNamePlace = findViewById(R.id.UserDetailName);
-        FriendButton = findViewById(R.id.SendRequestButton);
-        SaveButton = findViewById(R.id.SaveUserButton);
-        EditButton = findViewById(R.id.EditUserButton);
-        CancelButton = findViewById(R.id.CancelEditButton);
         UserImage = findViewById(R.id.DetailsUserImage);
-        bottomLayout = findViewById(R.id.BottomInfoLayout);
-        ExpandText = findViewById(R.id.ExpandText);
-        ChevronUp = findViewById(R.id.ChevronUp);
         ExitDetails = findViewById(R.id.ExitUserDetails);
 
         ExitDetails.setOnClickListener(new View.OnClickListener() {
@@ -90,40 +92,13 @@ public class UserDetails extends AppCompatActivity {
             }
         });
 
+        //Set the user id for pulling user info.
+        USER_ID = i.getIntExtra("userId",0);
 
         if(i.getIntExtra("userId",0) == prefs.getInt("SongShareId",0)){
             Toast.makeText(getApplicationContext(),"User can be edited.",Toast.LENGTH_SHORT).show();
             EditButton.setVisibility(View.VISIBLE);
         }else{
-            FriendButton.setVisibility(View.VISIBLE);
-
-            FriendButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    StringRequest sendFriendReq = new StringRequest(Request.Method.POST, "http://104.236.66.72:5698/user/friend/add", new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Log.d("RESPONSE",response);
-                            FriendButton.setVisibility(View.GONE);
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-
-                        }
-                    }){
-                        @Override
-                        protected Map<String, String> getParams() throws AuthFailureError {
-                            HashMap<String,String> params = new HashMap<>();
-                            params.put("sender",String.valueOf(prefs.getInt("SongShareId",0)));
-                            params.put("reciever",String.valueOf(i.getIntExtra("userId",0)));
-                            return params;
-                        }
-                    };
-                    req.add(sendFriendReq);
-                }
-            });
-
             data.CheckFriends(i.getIntExtra("userId",0),prefs.getInt("SongShareId",0));
         }
     }
@@ -148,7 +123,6 @@ public class UserDetails extends AppCompatActivity {
             StringRequest userInfoReq = new StringRequest(Request.Method.GET, "http://104.236.66.72:5698/user/"+this.user_id, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    Log.d("USER DATA",response);
                     try{
                         JSONArray repObj = new JSONArray(response);
                         UserNamePlace.setText(repObj.getJSONObject(0).getString("username"));
@@ -164,6 +138,44 @@ public class UserDetails extends AppCompatActivity {
                 }
             });
             this.req.add(userInfoReq);
+
+            StringRequest loadGroups = new StringRequest(Request.Method.POST, "http://104.236.66.72:5698/groups", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try{
+                        JSONObject rep = new JSONObject(response);
+                        ArrayList<JSONObject> objs = new ArrayList<>();
+
+                        for(int i = 0;i < rep.getJSONArray("PAYLOAD").length();i++){
+                            objs.add(rep.getJSONArray("PAYLOAD").getJSONObject(i));
+                        }
+
+                        SongShareRecyclerViewAdapter adapt = new SongShareRecyclerViewAdapter(getApplicationContext(),objs);
+                        RecyclerView rec = findViewById(R.id.GroupMemberList);
+
+                        //Set up the groups recycler view.
+                        rec.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false));
+                        rec.setAdapter(adapt);
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            }){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    HashMap<String,String> params = new HashMap<>();
+
+                    params.put("user_id", String.valueOf(USER_ID));
+
+                    return params;
+                }
+            };
+            req.add(loadGroups);
         }
 
         private void CheckFriends(final int friend,final int user){
@@ -196,6 +208,25 @@ public class UserDetails extends AppCompatActivity {
                 }
             };
             this.req.add(checkReq);
+        }
+    }
+
+    //Adapter used for showing the users groups they are a part of.
+    private class MemberAdapter extends ArrayAdapter{
+        private Context con;
+        private ArrayList<JSONObject> objs;
+
+        public MemberAdapter(@NonNull Context context, @NonNull ArrayList<JSONObject> objs) {
+            super(context, 0, objs);
+
+            this.con = context;
+            this.objs = objs;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            return super.getView(position, convertView, parent);
         }
     }
 }

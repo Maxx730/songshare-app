@@ -253,11 +253,10 @@ public class GroupsFragment extends Fragment {
                             Intent i = new Intent(getActivity().getApplicationContext(),SingleGroup.class);
                             try{
                                 i.putExtra("GroupId",objs.get(position).getString("_id"));
+                                startActivity(i);
                             }catch(Exception e){
                                 e.printStackTrace();
                             }
-
-                            startActivity(i);
                         }
                     });
                 }catch(Exception e){
