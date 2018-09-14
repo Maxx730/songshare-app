@@ -8,107 +8,141 @@
     android:orientation="vertical"
     android:outlineProvider="background">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:layout_height="180dp">
 
         <RelativeLayout
-            android:layout_width="131dp"
-            android:layout_height="128dp">
+            android:id="@+id/BlurryRootView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/SingleAlbumArt"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
-                android:background="@color/toggleGray"
-                android:minHeight="208dp"
-                android:padding="2dp"
-                android:scaleType="fitStart"
-                android:visibility="visible"
-                app:srcCompat="@drawable/ic_launcher_background" />
-
-            <ProgressBar
-                android:id="@+id/ShareLoadingAnim"
-                style="?android:attr/progressBarStyle"
+                android:id="@+id/SharedUserProfile"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:padding="100dp" />
-
-            <RelativeLayout
-                android:id="@+id/ShareIndicator"
-                android:layout_width="3dp"
-                android:layout_height="128dp"
-                android:layout_marginLeft="128dp"
-                android:layout_weight="1"
-                android:background="@color/colorAccent">
-
-            </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/generic_avatar" />
         </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="10dp">
+            android:layout_height="match_parent"
+            android:background="#77000000">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/SingleTrackTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:singleLine="true"
-                    android:text="[Track Title]"
-                    android:textAlignment="textStart"
-                    android:textColor="#77000000"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/SingleTrackArtist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text="[Artist]"
-                android:textAlignment="textStart"
-                android:textColor="#77000000"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/SingleShareSharer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="7dp"
-                android:singleLine="true"
-                android:text="[Sharer]"
-                android:textAlignment="textEnd"
-                android:textColor="#77000000"
-                android:textSize="14sp"
-                android:textStyle="italic"
-                android:visibility="visible" />
-
-        </LinearLayout>
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/TrackLikeHeart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:src="@drawable/heart_empty" />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/trackLikeHeart"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:src="@drawable/spotify_logo_rgb_white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <RelativeLayout
+                android:layout_width="131dp"
+                android:layout_height="128dp">
+
+                <ImageView
+                    android:id="@+id/SingleAlbumArt"
+                    android:layout_width="128dp"
+                    android:layout_height="128dp"
+                    android:minHeight="208dp"
+                    android:scaleType="fitStart"
+                    android:visibility="visible"
+                    app:srcCompat="@drawable/ic_launcher_background" />
+
+                <ProgressBar
+                    android:id="@+id/ShareLoadingAnim"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:padding="100dp" />
+
+                <RelativeLayout
+                    android:id="@+id/ShareIndicator"
+                    android:layout_width="3dp"
+                    android:layout_height="128dp"
+                    android:layout_marginLeft="128dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorAccent">
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/SingleTrackTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="[Track Title]"
+                        android:textAlignment="textStart"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/SingleTrackArtist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="[Artist]"
+                    android:textAlignment="textStart"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/SingleShareSharer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="7dp"
+                    android:singleLine="true"
+                    android:text="[Sharer]"
+                    android:textAlignment="textEnd"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:textStyle="italic"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

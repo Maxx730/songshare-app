@@ -8,7 +8,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +34,7 @@ public class SingleGroup extends AppCompatActivity {
     private ViewPager pager;
     private RequestQueue req;
     private TextView GroupTitle,GroupDesc;
+    private RelativeLayout GroupBack;
     private String GROUP_ID;
 
     @Override
@@ -52,10 +55,18 @@ public class SingleGroup extends AppCompatActivity {
         pager = findViewById(R.id.GroupPager);
         adapter = new GroupPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(adapter);
+        GroupBack = (RelativeLayout) findViewById(R.id.ExitUserDetails);
 
         //Grab the ID for the chosen group
         Intent i = getIntent();
         GROUP_ID = i.getStringExtra("GroupId");
+
+        GroupBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void LoadGroupInfo(){

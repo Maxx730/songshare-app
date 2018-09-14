@@ -23,11 +23,9 @@
 
         <RelativeLayout
             android:id="@+id/ExitUserDetails"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/transparent_ui_button"
+            android:background="@drawable/songshare_top_search"
             android:padding="10dp">
 
             <ImageView
@@ -40,12 +38,27 @@
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="10dp"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/imageView11"
                 android:text="Back"
-                android:textColor="#FFF"
+                android:textColor="@android:color/background_dark"
                 android:textSize="18sp" />
         </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/songshare_list_item"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/imageButton5"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/square_ui_button"
+                app:srcCompat="@drawable/chevron_up" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/SingleGroupTitle"

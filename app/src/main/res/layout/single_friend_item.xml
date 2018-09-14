@@ -48,12 +48,11 @@
             android:layout_alignParentTop="false"
             android:layout_marginTop="0dp"
             android:layout_weight="1"
-            android:capitalize="characters"
             android:fontFamily="@font/basic"
             android:paddingLeft="25dp"
             android:text="Extra Info"
             android:textAlignment="textStart"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
             android:textSize="12sp"
             android:textStyle="italic" />
     </LinearLayout>

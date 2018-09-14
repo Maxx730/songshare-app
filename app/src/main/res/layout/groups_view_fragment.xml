@@ -26,7 +26,7 @@
                 android:padding="10dp"
                 android:text="Groups"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@android:color/background_dark"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

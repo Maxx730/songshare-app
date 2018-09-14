@@ -38,7 +38,11 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -121,12 +125,26 @@ public class FriendsFragment extends Fragment {
             convertView = inflate.inflate(R.layout.single_friend_item,parent,false);
 
             TextView username = convertView.findViewById(R.id.FriendUsername);
+            TextView userDate = convertView.findViewById(R.id.FriendExtraInfo);
             final CircleImageView friendImage = (CircleImageView) convertView.findViewById(R.id.FriendImage);
 
             try{
                 username.setText(getItem(position).getString("username"));
-
                 Glide.with(getActivity().getApplicationContext()).asBitmap().load(getItem(position).getString("profile")).into(friendImage);
+
+
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(getActivity().getApplicationContext(),UserDetails.class);
+                        try{
+                            i.putExtra("userId",getItem(position).getInt("_id"));
+                            startActivity(i);
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }catch(Exception e){
                 System.out.println("ERROR BUILDING FRIEND LIST ITEM");
             }

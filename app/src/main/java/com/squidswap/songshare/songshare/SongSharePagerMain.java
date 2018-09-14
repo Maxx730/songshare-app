@@ -2,6 +2,7 @@ package com.squidswap.songshare.songshare;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -22,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -32,8 +34,14 @@ public class SongSharePagerMain extends FragmentActivity {
     private ViewPager pager;
     private SongSharePagerAdapter adapter;
     private LinearLayout SearchStaticLayout;
-    private ImageView RefreshButton,ProfileButton;
+    private ImageView RefreshButton,ProfileButton,FabBtn;
     private SharedPreferences check;
+    private LinearLayout SongShareFab;
+    private RelativeLayout NotifLay;
+    private boolean FAB_OPEN = false;
+    private NotificationHandler notification;
+    private RelativeLayout NotifBadge;
+    private TextView NotifCount;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +54,16 @@ public class SongSharePagerMain extends FragmentActivity {
             Intent i = new Intent(getApplicationContext(),LoginActivity.class);
             startActivity(i);
         }else{
+            notification = new NotificationHandler(getApplicationContext(), String.valueOf(check.getInt("SongShareId", 0)), new SongshareNotificationInterface() {
+                @Override
+                public void NotificationRecieved() {
+                    if(notification.GetNotifCount() > 0){
+                        NotifBadge.setVisibility(View.VISIBLE);
+                        NotifCount.setText(String.valueOf(notification.GetNotifCount()));
+                    }
+                }
+            });
+
             CreateNotificationChannel();
             //Let the user know to swipe right or left to view friends and shares etc.
             Toast.makeText(getApplicationContext(),"Swipe Right to View Friends",Toast.LENGTH_SHORT).show();
@@ -61,6 +79,9 @@ public class SongSharePagerMain extends FragmentActivity {
             ProfileButton = findViewById(R.id.SearchProfile);
             adapter = new SongSharePagerAdapter(getSupportFragmentManager());
             pager.setAdapter(adapter);
+            NotifLay = (RelativeLayout) findViewById(R.id.NotifLayout);
+            NotifBadge = (RelativeLayout) findViewById(R.id.NotificationBadge);
+            NotifCount = (TextView) findViewById(R.id.NotificationCount);
 
             ProfileButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -80,6 +101,14 @@ public class SongSharePagerMain extends FragmentActivity {
                             super.onAnimationEnd(animation);
                         }
                     }).start();
+                }
+            });
+
+            NotifLay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getApplicationContext(),SongshareNotifications.class);
+                    startActivity(i);
                 }
             });
 

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_dark"
     android:orientation="vertical"
     tools:context="com.squidswap.songshare.songshare.FindFriends">
 
@@ -14,8 +13,7 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:text="Search above to instantly find friends!"
-        android:textAlignment="center"
-        android:textColor="@color/light_gray_icon" />
+        android:textAlignment="center" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,8 +24,7 @@
             android:id="@+id/SearchLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#323233"
-            android:elevation="5dp"
+            android:background="@drawable/songshare_top_search"
             android:focusableInTouchMode="true"
             android:padding="15dp">
 

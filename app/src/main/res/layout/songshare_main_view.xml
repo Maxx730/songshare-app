@@ -2,6 +2,7 @@
 <!-- activity_screen_slide.xml -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/SongShareMainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -34,12 +35,50 @@
             android:id="@+id/SearchTextContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:background="@android:color/transparent"
             android:ems="10"
             android:hint="Search"
             android:inputType="textPersonName"
             android:textColorHint="@color/toggleGray" />
+
+        <RelativeLayout
+            android:id="@+id/NotifLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/SongShareNotif"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:padding="12dp"
+                android:src="@drawable/ic_round_notification_important_24px" />
+
+            <RelativeLayout
+                android:id="@+id/NotificationBadge"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentStart="false"
+                android:layout_alignParentTop="false"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/notification_badge"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/NotificationCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="0"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="8sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/SearchProfile"
@@ -57,16 +96,5 @@
             android:src="@drawable/ic_round_refresh_24px" />
 
     </LinearLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="20dp"
-        android:clickable="true"
-        app:srcCompat="@drawable/ic_round_add_24px" />
 
 </RelativeLayout>

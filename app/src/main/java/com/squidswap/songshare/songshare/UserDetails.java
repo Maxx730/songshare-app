@@ -84,6 +84,7 @@ public class UserDetails extends AppCompatActivity {
         UserNamePlace = findViewById(R.id.UserDetailName);
         UserImage = findViewById(R.id.DetailsUserImage);
         ExitDetails = findViewById(R.id.ExitUserDetails);
+        bottomLayout = findViewById(R.id.DetailedUserData);
 
         ExitDetails.setOnClickListener(new View.OnClickListener() {
             @Override

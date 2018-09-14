@@ -35,70 +35,42 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/ExitUserDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/transparent_ui_button"
-                android:padding="10dp">
-
-                <ImageView
-                    android:id="@+id/imageView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_round_chevron_left_24px" />
-
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginRight="10dp"
-                    android:text="Back"
-                    android:textColor="#FFF"
-                    android:textSize="18sp" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/UserDetailName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="10dp"
-                android:padding="10dp"
-                android:text="Loading..."
-                android:textAlignment="viewEnd"
-                android:textColor="#FFF"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/userDetailName"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="20dp"
-                android:text="Joined "
-                android:textAlignment="textStart"
-                android:textColor="#FFF"
-                android:textSize="18sp"
-                android:textStyle="italic" />
+                android:layout_height="match_parent"
+                android:background="@drawable/songshare_list_item"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/square_ui_button"
+                    app:srcCompat="@drawable/feather_email" />
+
+                <ImageButton
+                    android:id="@+id/imageButton3"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/square_ui_button"
+                    app:srcCompat="@drawable/feather_email" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/GroupMemberTitles"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="#66000000"
+                android:background="@drawable/songshare_top_item"
                 android:paddingBottom="10dp"
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
                 android:text="Member"
-                android:textColor="@android:color/background_light" />
+                android:textColor="@android:color/background_dark"
+                android:visibility="gone" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/GroupMemberList"
@@ -107,26 +79,194 @@
                 android:background="#88000000"
                 android:layoutDirection="ltr"
                 android:orientation="horizontal"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/UserSharedTracks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#66000000"
+                android:background="@drawable/songshare_top_item"
                 android:paddingBottom="10dp"
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
                 android:text="Shared Tracks"
-                android:textColor="@android:color/background_light" />
+                android:textColor="@android:color/background_dark"
+                android:visibility="gone" />
 
             <ListView
                 android:id="@+id/UserSharesList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:visibility="gone" />
 
         </LinearLayout>
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/DetailedUserData"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/user_details_bottom"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="17dp"
+                    android:layout_weight="1"
+                    android:shadowColor="@android:color/background_dark"
+                    android:shadowDy="3"
+                    android:text="237"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/background_light"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:shadowColor="@android:color/background_dark"
+                    android:shadowDy="3"
+                    android:text="Shares"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/background_light" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="17dp"
+                    android:layout_weight="1"
+                    android:shadowColor="@android:color/background_dark"
+                    android:shadowDy="3"
+                    android:text="430"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/background_light"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:shadowColor="@android:color/background_dark"
+                    android:shadowDy="3"
+                    android:text="Friends"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/background_light" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="17dp"
+                    android:layout_weight="1"
+                    android:shadowColor="@android:color/background_dark"
+                    android:shadowDy="3"
+                    android:text="15"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/background_light"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:shadowColor="@android:color/background_dark"
+                    android:shadowDy="3"
+                    android:text="Groups"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/background_light" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="18dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/UserDetailName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:text="Loading..."
+                android:textAlignment="textStart"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/ExitUserDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/ic_round_chevron_left_24px" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Back"
+                    android:textColor="@color/toggleGray"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -51,6 +51,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import jp.wasabeef.blurry.Blurry;
+
 //FRAGMENT ACTIVITY CLASS THAT WILL DISPLAY THE SHARE VIEW IN THE VIEWPAGER OBJECT.
 public class SharesFragment extends Fragment {
 
@@ -58,6 +60,7 @@ public class SharesFragment extends Fragment {
     private RequestQueue req;
     private ImageButton ToggleTracks,ToggleVideos;
     private ListView GroupShareList;
+    private RelativeLayout NoTracksLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -72,7 +75,7 @@ public class SharesFragment extends Fragment {
 
         if(value.equals("group") && value != null){
             rootView = (ViewGroup) inflater.inflate(R.layout.group_shares_fragment,container,false);
-
+            NoTracksLayout = (RelativeLayout) rootView.findViewById(R.id.ZeroSharesOverlay);
             GroupShareList = rootView.findViewById(R.id.GroupShareListView);
             LoadShares("group",id);
         }else{
@@ -125,6 +128,10 @@ public class SharesFragment extends Fragment {
                             JSONArray sour = mainObj.getJSONArray("PAYLOAD");
 
                             if(sour.length() > 0){
+                                NoTracksLayout.setVisibility(View.GONE);
+                            }
+
+                            if(sour.length() > 0){
                                 for(int i = 0;i < sour.length();i++){
                                     objs.add(sour.getJSONObject(i));
                                 }
@@ -134,7 +141,6 @@ public class SharesFragment extends Fragment {
                             }
                         }catch(Exception e){
                             e.printStackTrace();
-                            Toast.makeText(getActivity().getApplicationContext(),"ERROR PULLING SHARE DATA",Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -248,6 +254,7 @@ public class SharesFragment extends Fragment {
                 final ImageView likeHeart = convertView.findViewById(R.id.TrackLikeHeart);
                 TextView singleShareShaerer = convertView.findViewById(R.id.SingleShareSharer);
                 final ProgressBar shareAnimation = convertView.findViewById(R.id.ShareLoadingAnim);
+                ImageView ShareUserImage = convertView.findViewById(R.id.SharedUserProfile);
 
                 try{
                     singleShareTitle.setText(getItem(position).getString("title"));
@@ -287,6 +294,8 @@ public class SharesFragment extends Fragment {
                             return false;
                         }
                     }).into(sharedArtwork);
+
+                    Glide.with(getActivity().getApplicationContext()).load(getItem(position).getString("profile")).into(ShareUserImage);
 
                     sharedArtwork.setOnClickListener(new View.OnClickListener() {
                         @Override
