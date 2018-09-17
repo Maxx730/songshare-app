@@ -232,6 +232,12 @@ public class UserDetails extends AppCompatActivity {
 
                         if(check.getString("TYPE").equals("TRUE")){
                             FriendButton.setVisibility(View.GONE);
+                            JSONObject pay = check.getJSONArray("PAYLOAD").getJSONObject(0);
+
+                            if(pay.getInt("accepted") == 0){
+                                TextView PendingRequest = findViewById(R.id.PendingRequest);
+                                PendingRequest.setVisibility(View.VISIBLE);
+                            }
                         }
                     }catch(Exception e){
 

@@ -32,5 +32,6 @@
         android:layout_height="wrap_content"
         android:background="@drawable/notif_accept_button"
         android:padding="5dp"
-        android:text="Accept" />
+        android:text="Accept"
+        style="?android:attr/borderlessButtonStyle" />
 </LinearLayout>

@@ -150,6 +150,7 @@
         android:orientation="horizontal">
 
         <RelativeLayout
+            android:id="@+id/ToggleShareComments"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -178,6 +179,48 @@
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/fontawesome_heart" />
         </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/CommentsExpanded"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <EditText
+                android:id="@+id/CommentField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/comment_field"
+                android:ems="10"
+                android:hint="Comment"
+                android:inputType="textPersonName"
+                android:padding="10dp" />
+
+            <ImageView
+                android:id="@+id/CancelComment"
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:src="@drawable/ic_round_remove_circle_24px" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/CommentsListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

@@ -36,6 +36,16 @@
             android:orientation="vertical"
             android:padding="15dp">
 
+            <TextView
+                android:id="@+id/PendingRequest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Friend Request Pending..."
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textStyle="bold|italic"
+                android:visibility="gone" />
+
             <RelativeLayout
                 android:id="@+id/FriendRequestSend"
                 android:layout_width="120dp"

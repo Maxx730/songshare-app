@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -222,6 +223,8 @@ public class SharesFragment extends Fragment {
                 TextView GroupArtistView = convertView.findViewById(R.id.GroupShareArtist);
                 TextView GroupSharerText = convertView.findViewById(R.id.GroupShareSharer);
                 ImageView GroupShareImage = convertView.findViewById(R.id.GroupShareImage);
+                RelativeLayout ToggleComments = convertView.findViewById(R.id.ToggleShareComments);
+                final LinearLayout ExpandedComments = convertView.findViewById(R.id.CommentsExpanded);
 
                 try{
                     GroupTrackTitle.setText(getItem(position).getString("title"));
@@ -242,6 +245,13 @@ public class SharesFragment extends Fragment {
                             }
                         }
                     });
+
+                    ToggleComments.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ExpandedComments.setVisibility(View.VISIBLE);
+                        }
+                    });
                 }catch(Exception e){
                     e.printStackTrace();
                 }
@@ -255,6 +265,8 @@ public class SharesFragment extends Fragment {
                 TextView singleShareShaerer = convertView.findViewById(R.id.SingleShareSharer);
                 final ProgressBar shareAnimation = convertView.findViewById(R.id.ShareLoadingAnim);
                 ImageView ShareUserImage = convertView.findViewById(R.id.SharedUserProfile);
+                RelativeLayout ToggleComments = convertView.findViewById(R.id.ToggleShareComments);
+                final LinearLayout ExpandedComments = convertView.findViewById(R.id.CommentsExpanded);
 
                 try{
                     singleShareTitle.setText(getItem(position).getString("title"));
@@ -268,6 +280,8 @@ public class SharesFragment extends Fragment {
                     }else if(getItem(position).getString("youtube_id").equals("") == false){
                         RelativeLayout indi = convertView.findViewById(R.id.ShareIndicator);
                         indi.setBackgroundColor(getResources().getColor(R.color.youtube_red));
+
+                        sharedArtwork.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     }else{
                         RelativeLayout indi = convertView.findViewById(R.id.ShareIndicator);
                         indi.setBackgroundColor(getResources().getColor(R.color.google_play_orange));
@@ -308,6 +322,13 @@ public class SharesFragment extends Fragment {
                             }catch(Exception e){
                                 Toast.makeText(getActivity().getApplicationContext(),"Problem opening track details.",Toast.LENGTH_LONG).show();
                             }
+                        }
+                    });
+
+                    ToggleComments.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ExpandedComments.setVisibility(View.VISIBLE);
                         }
                     });
                 }catch(Exception e){
