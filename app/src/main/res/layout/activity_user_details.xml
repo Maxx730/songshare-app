@@ -32,73 +32,35 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/songshare_list_item"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/imageButton"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:background="@drawable/square_ui_button"
-                    app:srcCompat="@drawable/feather_email" />
-
-                <ImageButton
-                    android:id="@+id/imageButton3"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/square_ui_button"
-                    app:srcCompat="@drawable/feather_email" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/GroupMemberTitles"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:id="@+id/FriendRequestSend"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/songshare_top_item"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:text="Member"
-                android:textColor="@android:color/background_dark"
-                android:visibility="gone" />
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/songshare_dialog">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/GroupMemberList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#88000000"
-                android:layoutDirection="ltr"
-                android:orientation="horizontal"
-                android:padding="10dp"
-                android:visibility="gone" />
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    app:srcCompat="@drawable/ic_round_send_24px" />
 
-            <TextView
-                android:id="@+id/UserSharedTracks"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/songshare_top_item"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:text="Shared Tracks"
-                android:textColor="@android:color/background_dark"
-                android:visibility="gone" />
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:gravity="right|center_vertical"
+                    android:paddingRight="15dp"
+                    android:text="Request" />
 
-            <ListView
-                android:id="@+id/UserSharesList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone" />
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -156,7 +118,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView17"
+                    android:id="@+id/textView176"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="17dp"
@@ -169,7 +131,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView21"
+                    android:id="@+id/textView216"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -187,7 +149,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView17"
+                    android:id="@+id/textView1768"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="17dp"
@@ -200,7 +162,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView21"
+                    android:id="@+id/textView2168"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -218,6 +180,13 @@
             android:layout_height="70dp"
             android:layout_marginTop="18dp"
             android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/generic_avatar" />
 
             <TextView
                 android:id="@+id/UserDetailName"
@@ -268,5 +237,46 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/UserDetailsSendRequest"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bottom_toggle_main_screen"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="230dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/songshare_dialog"
+            android:elevation="3dp"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/AnimationRequestText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sending Request..."
+                android:textAlignment="center" />
+
+            <ImageView
+                android:id="@+id/AnimationIcon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_round_access_time_24px" />
+
+            <RelativeLayout
+                android:id="@+id/RequestAnimation"
+                android:layout_width="10dp"
+                android:layout_height="3dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/send_user_request">
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

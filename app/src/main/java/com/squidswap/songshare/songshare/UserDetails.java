@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.gesture.Gesture;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -55,14 +56,13 @@ public class UserDetails extends AppCompatActivity {
 
     private ImageView UserImage,ChevronUp;
     private Button EditButton,CancelButton,SaveButton;
-    private ImageButton FriendButton;
     private TextView UserNamePlace,ExpandText;
     private SharedPreferences prefs;
     private RequestQueue req;
     private LinearLayout bottomLayout;
     private UserDetailsBottomListener botListen;
     private GestureDetector gest;
-    private RelativeLayout ExitDetails;
+    private RelativeLayout ExitDetails,RequestAnimation,FriendButton;
     private int USER_ID;
 
     @Override
@@ -85,6 +85,8 @@ public class UserDetails extends AppCompatActivity {
         UserImage = findViewById(R.id.DetailsUserImage);
         ExitDetails = findViewById(R.id.ExitUserDetails);
         bottomLayout = findViewById(R.id.DetailedUserData);
+        RequestAnimation = findViewById(R.id.RequestAnimation);
+        FriendButton = findViewById(R.id.FriendRequestSend);
 
         ExitDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +104,50 @@ public class UserDetails extends AppCompatActivity {
         }else{
             data.CheckFriends(i.getIntExtra("userId",0),prefs.getInt("SongShareId",0));
         }
+
+        //Set some UI interactions here
+        FriendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                StringRequest AddFriend = new StringRequest(Request.Method.POST, "http://104.236.66.72:5698/user/friend/add", new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+                        try{
+                            JSONObject rep = new JSONObject(response);
+
+                            if(rep.getString("TYPE").equals("SUCCESS")){
+                                RelativeLayout RequestView = findViewById(R.id.UserDetailsSendRequest);
+
+                                RequestView.setVisibility(View.VISIBLE);
+                                AnimateRequest();
+                            }else{
+                                Toast.makeText(getApplicationContext(),"There seems to have been an issue sending request.",Toast.LENGTH_LONG).show();
+                            }
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        HashMap<String,String> params = new HashMap<>();
+
+                        params.put("sender",String.valueOf(prefs.getInt("SongShareId",0)));
+                        params.put("reciever",String.valueOf(i.getIntExtra("userId",0)));
+
+                        return params;
+                    }
+                };
+                req.add(AddFriend);
+            }
+        });
     }
 
     private class User{
@@ -152,11 +198,8 @@ public class UserDetails extends AppCompatActivity {
                         }
 
                         SongShareRecyclerViewAdapter adapt = new SongShareRecyclerViewAdapter(getApplicationContext(),objs);
-                        RecyclerView rec = findViewById(R.id.GroupMemberList);
 
-                        //Set up the groups recycler view.
-                        rec.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false));
-                        rec.setAdapter(adapt);
+
                     }catch(Exception e){
                         e.printStackTrace();
                     }
@@ -210,6 +253,64 @@ public class UserDetails extends AppCompatActivity {
             };
             this.req.add(checkReq);
         }
+    }
+
+    private void AnimateRequest(){
+        final RelativeLayout parent = (RelativeLayout) RequestAnimation.getParent();
+        parent.post(new Runnable() {
+            @Override
+            public void run() {
+                ValueAnimator anim = ValueAnimator.ofInt(10,parent.getMeasuredWidth());
+
+                anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        RelativeLayout.LayoutParams layout = (RelativeLayout.LayoutParams) RequestAnimation.getLayoutParams();
+                        layout.width = (int) animation.getAnimatedValue();
+                        RequestAnimation.setLayoutParams(layout);
+                    }
+                });
+
+                anim.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        TextView AnimationText = findViewById(R.id.AnimationRequestText);
+                        ImageView AnimationImage = findViewById(R.id.AnimationIcon);
+
+                        AnimationImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_round_done_24px));
+                        AnimationText.setText("Request Sent!");
+
+                        FriendButton.setVisibility(View.GONE);
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                RelativeLayout AnimationScreen = (RelativeLayout) parent.getParent();
+                                AnimationScreen.animate().setDuration(1000).alpha(0f).start();
+                            }
+                        },750);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
+
+                anim.setDuration(1000);
+                anim.start();
+            }
+        });
     }
 
     //Adapter used for showing the users groups they are a part of.
