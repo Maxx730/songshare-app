@@ -1,5 +1,9 @@
 package com.squidswap.songshare.songshare;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +12,7 @@ import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -17,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -57,11 +63,29 @@ import jp.wasabeef.blurry.Blurry;
 //FRAGMENT ACTIVITY CLASS THAT WILL DISPLAY THE SHARE VIEW IN THE VIEWPAGER OBJECT.
 public class SharesFragment extends Fragment {
 
+    private SharedPreferences prefs;
+
     private GridView SharesList;
     private RequestQueue req;
     private ImageButton ToggleTracks,ToggleVideos;
     private ListView GroupShareList;
     private RelativeLayout NoTracksLayout;
+    private RelativeLayout CommentAnimate,CommentDialog;
+    private TextView CommentDialogText;
+    private ImageView CommentSendImage;
+    private LinearLayout ComposeCommentLayout;
+
+    //UI elements for comments dialog.
+    private TextView DialogTitle,DialogArtist,DialogUser;
+    private ImageView DialogArt;
+    private RelativeLayout DialogBackground;
+    private ImageButton DialogCancel,SendComment;
+    private EditText DialogComposeField;
+    private ListView DialogCommentList;
+
+
+    //Our objects for the comment dialog.
+    private Share share;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -73,6 +97,8 @@ public class SharesFragment extends Fragment {
             value = getArguments().getString("type");
             id = getArguments().getString("group_id");
         }
+
+        prefs = getActivity().getSharedPreferences("SongShareLogin",Context.MODE_PRIVATE);
 
         if(value.equals("group") && value != null){
             rootView = (ViewGroup) inflater.inflate(R.layout.group_shares_fragment,container,false);
@@ -87,6 +113,23 @@ public class SharesFragment extends Fragment {
             //Load UI components here.
             ToggleTracks = rootView.findViewById(R.id.ToggleMainTracks);
             ToggleVideos = rootView.findViewById(R.id.ToggleMainVideos);
+
+            //Get UI elements for comments Dialog.
+            CommentAnimate = rootView.findViewById(R.id.SendingCommentAnimation);
+            CommentDialog = rootView.findViewById(R.id.CommentSendDialog);
+            CommentDialogText = rootView.findViewById(R.id.SendingCommentText);
+            CommentSendImage = rootView.findViewById(R.id.SendCommentImage);
+            ComposeCommentLayout = rootView.findViewById(R.id.SendCommentFields);
+            DialogTitle = rootView.findViewById(R.id.ComposeTrackTitle);
+            DialogArtist = rootView.findViewById(R.id.ComposeTrackArtist);
+            DialogUser = rootView.findViewById(R.id.ComposeTrackSharer);
+            DialogArt = rootView.findViewById(R.id.ComposeTrackArt);
+            DialogCancel = rootView.findViewById(R.id.ComposeCommentCancel);
+            DialogBackground = rootView.findViewById(R.id.ComposeCommentBackground);
+            DialogComposeField = rootView.findViewById(R.id.ComposeCommentField);
+            SendComment = rootView.findViewById(R.id.SendComment);
+            DialogCommentList = rootView.findViewById(R.id.ComposeCommentList);
+
             //Set the videos button to not focused.
             ToggleVideos.getDrawable().setColorFilter(getResources().getColor(R.color.light_gray_icon), PorterDuff.Mode.MULTIPLY);
 
@@ -103,6 +146,33 @@ public class SharesFragment extends Fragment {
                 public void onClick(View view) {
                     ResetColorsToggle();
                     ToggleVideos.getDrawable().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
+                }
+            });
+
+            DialogCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DialogBackground.animate().alpha(0f).setListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            DialogBackground.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {
+
+                        }
+                    }).setDuration(300).start();
                 }
             });
         }
@@ -195,6 +265,188 @@ public class SharesFragment extends Fragment {
         }
     }
 
+    private void AnimateCommentSend(){
+        CommentDialog.setVisibility(View.VISIBLE);
+        final RelativeLayout parent = (RelativeLayout) CommentAnimate.getParent();
+
+        parent.post(new Runnable() {
+            @Override
+            public void run() {
+                ValueAnimator anim = ValueAnimator.ofInt(10,parent.getMeasuredWidth());
+
+                anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        CommentAnimate.getLayoutParams().width = (int) animation.getAnimatedValue();
+                        CommentAnimate.requestLayout();
+                    }
+                });
+
+                anim.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        CommentDialogText.setText("Comment Sent!");
+                        CommentSendImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_round_done_24px));
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                CommentDialog.animate().setDuration(500).alpha(0f).setListener(new Animator.AnimatorListener() {
+                                    @Override
+                                    public void onAnimationStart(Animator animation) {
+
+                                    }
+
+                                    @Override
+                                    public void onAnimationEnd(Animator animation) {
+                                        CommentDialogText.setText("Sending Comment...");
+                                        CommentSendImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_round_access_time_24px));
+                                        CommentDialog.setVisibility(View.GONE);
+                                        CommentDialog.setAlpha(1f);
+                                    }
+
+                                    @Override
+                                    public void onAnimationCancel(Animator animation) {
+
+                                    }
+
+                                    @Override
+                                    public void onAnimationRepeat(Animator animation) {
+
+                                    }
+                                }).start();
+                            }
+                        },500);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
+
+                anim.setDuration(1000);
+                anim.start();
+            }
+        });
+    }
+
+    //Shows/Animates in the dialog for adding a comment.
+    private void OpenComposeComment(final Share share){
+
+        DialogTitle.setText(share.getTitle());
+        DialogArtist.setText(share.getArtist());
+        DialogUser.setText(share.getUser().GetUsername());
+
+        DialogBackground.setVisibility(View.VISIBLE);
+        DialogBackground.animate().setDuration(300).alpha(1f).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                share.GetComments(new SongshareArrayInterface() {
+                    @Override
+                    public void AfterRetrieveArray(ArrayList<JSONObject> objs) {
+                        CommentAdapter com = new CommentAdapter(getActivity().getApplicationContext(),0,objs);
+                        DialogCommentList.setAdapter(com);
+                    }
+                });
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        }).start();
+
+        Glide.with(getActivity().getApplicationContext()).load(share.getArt()).into(DialogArt);
+
+        ValueAnimator anim = ValueAnimator.ofInt(0,1200);
+
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                ComposeCommentLayout.getLayoutParams().height = (int) animation.getAnimatedValue();
+                ComposeCommentLayout.requestLayout();
+            }
+        });
+
+        anim.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                SendComment.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(!DialogComposeField.getText().toString().matches("")){
+                            share.AddComment(DialogComposeField.getText().toString(),prefs.getInt("SongShareId",0));
+                            DialogComposeField.setText("");
+                            DialogBackground.animate().alpha(0f).setListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    DialogBackground.setVisibility(View.GONE);
+                                    AnimateCommentSend();
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animation) {
+
+                                }
+                            }).setDuration(300).start();
+                        }else{
+                            Toast.makeText(getActivity().getApplicationContext(),"Comment cannot be empty...",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+        anim.setDuration(450);
+        anim.start();
+    }
+
     //Adapter that pulls in the JSONObject array list and applies the single share layout
     //to each object in the list for the listview.
     class ShareAdapter extends ArrayAdapter<JSONObject> {
@@ -224,7 +476,6 @@ public class SharesFragment extends Fragment {
                 TextView GroupSharerText = convertView.findViewById(R.id.GroupShareSharer);
                 ImageView GroupShareImage = convertView.findViewById(R.id.GroupShareImage);
                 RelativeLayout ToggleComments = convertView.findViewById(R.id.ToggleShareComments);
-                final LinearLayout ExpandedComments = convertView.findViewById(R.id.CommentsExpanded);
 
                 try{
                     GroupTrackTitle.setText(getItem(position).getString("title"));
@@ -245,13 +496,6 @@ public class SharesFragment extends Fragment {
                             }
                         }
                     });
-
-                    ToggleComments.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            ExpandedComments.setVisibility(View.VISIBLE);
-                        }
-                    });
                 }catch(Exception e){
                     e.printStackTrace();
                 }
@@ -266,12 +510,22 @@ public class SharesFragment extends Fragment {
                 final ProgressBar shareAnimation = convertView.findViewById(R.id.ShareLoadingAnim);
                 ImageView ShareUserImage = convertView.findViewById(R.id.SharedUserProfile);
                 RelativeLayout ToggleComments = convertView.findViewById(R.id.ToggleShareComments);
-                final LinearLayout ExpandedComments = convertView.findViewById(R.id.CommentsExpanded);
+                ImageView TrackSource = convertView.findViewById(R.id.TrackSourceImage);
 
                 try{
-                    singleShareTitle.setText(getItem(position).getString("title"));
-                    singleShareArtist.setText(getItem(position).getString("artist"));
-                    singleShareShaerer.setText("Shared by " + getItem(position).getString("username"));
+                    final int shareId,userId;
+                    final String title,artist,username,art;
+
+                    art = getItem(position).getString("art");
+                    shareId = getItem(position).getInt("_id");
+                    userId = getItem(position).getInt("user_id");
+                    title = getItem(position).getString("title");
+                    artist = getItem(position).getString("artist");
+                    username = getItem(position).getString("username");
+
+                    singleShareTitle.setText(title);
+                    singleShareArtist.setText(artist);
+                    singleShareShaerer.setText("Shared by " + username);
 
 
                     if(getItem(position).getString("spotify_id").equals("") == false){
@@ -282,6 +536,7 @@ public class SharesFragment extends Fragment {
                         indi.setBackgroundColor(getResources().getColor(R.color.youtube_red));
 
                         sharedArtwork.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        TrackSource.setImageDrawable(getResources().getDrawable(R.drawable.yt_logo_rgb_dark));
                     }else{
                         RelativeLayout indi = convertView.findViewById(R.id.ShareIndicator);
                         indi.setBackgroundColor(getResources().getColor(R.color.google_play_orange));
@@ -295,7 +550,7 @@ public class SharesFragment extends Fragment {
                         }
                     });
 
-                    Glide.with(getActivity().getApplicationContext()).load(getItem(position).getString("art")).listener(new RequestListener<Drawable>() {
+                    Glide.with(getActivity().getApplicationContext()).load(art).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             return false;
@@ -325,10 +580,12 @@ public class SharesFragment extends Fragment {
                         }
                     });
 
+
                     ToggleComments.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ExpandedComments.setVisibility(View.VISIBLE);
+                            share = new Share(shareId,title,artist,art,new User(userId,username),getActivity().getApplicationContext());
+                            OpenComposeComment(share);
                         }
                     });
                 }catch(Exception e){
@@ -336,6 +593,35 @@ public class SharesFragment extends Fragment {
                 }
             }
 
+
+            return convertView;
+        }
+    }
+
+    class CommentAdapter extends ArrayAdapter<JSONObject>{
+        private Context con;
+        private ArrayList<JSONObject> comments;
+
+        public CommentAdapter(Context context,int resource,ArrayList<JSONObject> comments){
+            super(context,0,comments);
+
+            this.con = context;
+            this.comments = comments;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            convertView = getLayoutInflater().inflate(R.layout.single_comment,parent,false);
+            TextView Commentor = convertView.findViewById(R.id.CommentUser);
+            TextView CommentContent = convertView.findViewById(R.id.CommentContent);
+
+            try{
+                Commentor.setText(comments.get(position).getString("username"));
+                CommentContent.setText(comments.get(position).getString("content"));
+            }catch(Exception e){
+                e.printStackTrace();
+            }
 
             return convertView;
         }

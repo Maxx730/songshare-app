@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ShareLayout"
     android:layout_width="match_parent"
@@ -64,4 +64,166 @@
             android:numColumns="1" />
     </LinearLayout>
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/CommentSendDialog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bottom_toggle_main_screen"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/songshare_dialog"
+            android:elevation="3dp"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/SendingCommentText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sending Comment..."
+                android:textAlignment="center" />
+
+            <ImageView
+                android:id="@+id/SendCommentImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_round_access_time_24px" />
+
+            <RelativeLayout
+                android:id="@+id/SendingCommentAnimation"
+                android:layout_width="10dp"
+                android:layout_height="3dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/send_user_request">
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ComposeCommentBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bottom_toggle_main_screen"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/SendCommentFields"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/songshare_dialog"
+            android:elevation="3dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bottom_line"
+                android:clipToPadding="false"
+                android:elevation="1dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/ComposeTrackArt"
+                    android:layout_width="82dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_launcher_background"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp">
+
+                        <TextView
+                            android:id="@+id/ComposeTrackTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:text="Track Title"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/ComposeTrackArtist"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Artist" />
+
+                        <TextView
+                            android:id="@+id/ComposeTrackSharer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Shared By" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/ComposeCommentCancel"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/comments_close"
+                    android:paddingBottom="7dp"
+                    android:paddingLeft="7dp"
+                    android:src="@drawable/ic_round_clear_24px" />
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/ComposeCommentList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/top_line"
+                android:orientation="horizontal"
+                android:padding="20dp">
+
+                <EditText
+                    android:id="@+id/ComposeCommentField"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/comment_field"
+                    android:ems="10"
+                    android:hint="Comment"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="20dp" />
+
+                <ImageButton
+                    android:id="@+id/SendComment"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/send_comment"
+                    android:src="@drawable/ic_round_send_24px" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
